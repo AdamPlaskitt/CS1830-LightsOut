@@ -1,0 +1,106 @@
+import simplegui, math, random
+from user301_hPMHbpw1h9_0 import Vector
+
+CANVASHEIGHT = 750
+CANVASWIDTH = 750
+MIN_RAD = 1
+
+class Player:
+    def __init__(self):
+        self.pos = Vector(CANVASWIDTH / 2, CANVASHEIGHT / 2)
+        self.vel = Vector()
+        self.radius = 10
+        self.colour = 'Green'
+
+    def draw(self, canvas):
+        canvas.draw_circle(self.pos.getP(), self.radius, 1, self.colour, self.colour)
+        
+    def update(self):
+        self.pos.add(self.vel)
+        self.vel.multiply(0.85)
+        
+player = Player()
+
+class Obstacle:
+    def __init__(self, x1, y1, x2, y2):        
+        self.startPos = Vector(x1,y1)
+        self.endPos = Vector(x2,y2)
+        self.vel = Vector()
+        self.colour = 'Red'
+
+    def draw(self, canvas):
+        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 30, self.colour)
+        
+    def update(self):
+        self.startPos.add(self.vel)
+        self.endPos.add(self.vel)
+        self.vel.multiply(0.85)
+
+class Keyboard:
+    def __init__(self):
+        self.right = False
+        self.left = False
+        self.up = False
+        self.down = False
+    
+    def keyDown(self, key):
+        if key == simplegui.KEY_MAP['right']:
+            self.right = True
+        if key == simplegui.KEY_MAP['left']:
+            self.left = True
+        if key == simplegui.KEY_MAP['up']:
+            self.up = True
+        if key == simplegui.KEY_MAP['down']:
+            self.down = True
+
+    def keyUp(self, key):
+        if key == simplegui.KEY_MAP['right']:
+            self.right = False
+        if key == simplegui.KEY_MAP['left']:
+            self.left = False
+        if key == simplegui.KEY_MAP['up']:
+            self.up = False
+        if key == simplegui.KEY_MAP['down']:
+            self.down = False
+
+class Interaction:    
+    def __init__(self, obstacle, keyboard):
+        self.obstacle = obstacle
+        self.keyboard = keyboard
+
+    def update(self):
+        if self.keyboard.right:
+            self.obstacle.vel.add(Vector(-0.4, 0))
+        if self.keyboard.left:
+            self.obstacle.vel.add(Vector(0.4, 0))
+        if self.keyboard.up:
+            self.obstacle.vel.add(Vector(0, 0.4))
+        if self.keyboard.down:
+            self.obstacle.vel.add(Vector(0, -0.4))
+
+            
+kbd = Keyboard()
+Map = []
+Map.append(Obstacle(0,0,100,0))
+Map.append(Obstacle(100,0,100,100))
+Map.append(Obstacle(0,100,100,100))
+Map.append(Obstacle(0,0,0,100))
+Interactions = []
+for obstacle in Map:
+    Interactions.append(Interaction(obstacle, kbd))
+           
+def draw(canvas):
+    for inter in Interactions:
+        inter.update()
+    for obstacle in Map:
+        obstacle.update()
+        obstacle.draw(canvas)
+    player.update()
+    player.draw(canvas)
+
+# Create a frame and assign callbacks to event handlers
+frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
+frame.set_draw_handler(draw)
+frame.set_keydown_handler(kbd.keyDown)
+frame.set_keyup_handler(kbd.keyUp)
+frame.start()
