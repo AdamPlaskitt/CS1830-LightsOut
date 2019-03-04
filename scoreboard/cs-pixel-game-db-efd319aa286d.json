@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cs-pixel-game-db",
+  "private_key_id": "efd319aa286da44075f057eb84661c255f887cd6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/abdDXv8n800Q\niPdKroM8d2fi5v1dRnVBJFuoQkJ6kN6R7pE9gVu59kftBORrEqRoREhToP8kVLRS\nWeKhlLeUGEcVjrlkeKDkzxEfyYeKTznemxZL2erJmEsCUS2fqZMJ2EK5NHIJSxcx\n3frh5ILd2sMkec50MdcFSaWaNlp4DHmw+oTYB1koBibdT7m/kHl9Z2M9BlR9zeRP\nufGg0jKMEzHOkDcyG+RAXDovnbNThZ+fDre7e1PT4sN+ujVZXI3zFKJje65qPy3u\nvuRq3xG2vMQVtZdxzQ6W70/EW5GVdT1nEw4kyHR+wp71MXuqJExzdjkfiGADRwIA\nuLpZ4aLBAgMBAAECggEAEip6i9CLdzNqRDA3hfUve9DaQWjKMWzDKopEj6CwNfkj\nQmbJjnSFK84xj89HzVig1UtrsNIl/MD0Nx+UOGEIlivCrUtVEXG4VVbIiYODE0+H\nDrcZw9ub4oOLVN427gD2NTg6xuBxFSw0+JTYX1FkUSFWpVLREup6/WO6rXrMlblx\nIQl7hNG42BtlQHDm9fQqPbDYyVpW/7Z0qCZpOmyywxZKhUxnpCU65o3KjCJbLSnF\ngWBnvy6uqvYLUpVIKdhgUccYR77jei7oKn/iiZRWrbL1b+jcqdGeoSn/ZqeXZfJN\nv74/OLbUm41V0WCFYSl2D8A2nBXzI+bcHECfnQu2lQKBgQD1uYk9GPV4apSg3iuN\nXAbryDqKZZH/esGhJC/5oL+QbARm3dcjOhsdGTYQnE0MYxl74m2xCi9Vxpy9adwJ\nfLdmjM2TybUJ4Gl0hSPEKZzPsMCZtsnsnnXalQG1bpO6J/F5rd2jgjJPUvxGwWoR\n84GYrQ53/NaXInFpkJwzAx9w9QKBgQDHasa8GfCAV4X8QPgYjlZ056njwDmihdfs\nbDUiZAfsmfLXWJyjtHdQh9rjaZAgnYJjtnV0O/RxT/P4sxReLH4LvpaTAZKRMM1N\nmY3pkOrTO0Uvx0HUwmRYaVXd5EOLGLKlqj9Y//7E2l09U6x2s7BeQg6MLqNztJPy\nLlRTU8gbHQKBgDo3jftKuYWhArumR31DS2R7WNtHOzLjO5LZBwDGg/xMizJv5rOy\n5Y+cVIHU9jA0HmqKd+CVACf7WVFLDlW1FaKXQ3F7PYgsge+YR6QHE97lCoygkPCd\njmCOIwyAOUHGiuCAP92oUBEZISoGUwITxiWNAruMzK6b+3C+UTOIzt8tAoGAEGwN\no63rLVaH1Scwhy0pl4UAa54H4Qduqaybj5J3SJfA9NT6SUzySnJ1pyapVNZDx5xd\n/c12KuKvr7pnof29/4+ZbM/DVyuSrKJJmoNxoyWNZArfs/qyMsmx5Y0Htuu4woXL\no7OpMmLdLNC4MipICusbsZWhpkSnrlj8XsRWhU0CgYBno33Khw0L87XYx8qhjTnK\nB+312Ikvy38DovAiZIbUWngxRM3WQRlj51Glxw+WPXENUP+OAbEVCqLIb0b7/iXo\nC6RfruufeXVDVttGphJV/xKLaCjrbqjEZ6vGMum3Ft07sSCE6ZqqHzhJpN//wHPL\n+k0UvGRe7cHXLXqgjVzAaQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "db-331@cs-pixel-game-db.iam.gserviceaccount.com",
+  "client_id": "101743740202584340289",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/db-331%40cs-pixel-game-db.iam.gserviceaccount.com"
+}
