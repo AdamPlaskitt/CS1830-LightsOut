@@ -7,7 +7,6 @@ LOCATION = '{this_dir}{connector}{name}'.format(this_dir=THIS_DIR, connector='/'
 
 
 class Scores:
-    @property
     def get_scores(self):
         """
         :return: title, list_of_scores
@@ -161,12 +160,6 @@ class Scores:
             except Exception as e:
                 print(e)
 
-
-
-
-
-
-
     def _reset_scoreboard(self, local=True):
         """
         reset a score to a scoreboard
@@ -176,6 +169,7 @@ class Scores:
         # TODO
         pass
 
+    # add score to 2d list using insertion sort
     def _insert_score(self, list, item):
         for index in range(len(list)):
             if item[0] > list[index][0]:
@@ -188,8 +182,6 @@ class Scores:
                 elif item[1] == list[index][1]:
                     break
         return list
-
-
 
 
 if __name__ == '__main__':

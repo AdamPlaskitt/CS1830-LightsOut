@@ -1,5 +1,9 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import os
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+THIS_CREDENTIALS = '{DIR}{conn}{name}'.format(DIR=THIS_DIR, conn='\\', name='cs-pixel-game-db-efd319aa286d.json')
 
 
 # attempt a connection to google spreadsheet
@@ -8,7 +12,7 @@ def connect():
              'https://www.googleapis.com/auth/drive']
 
     # User credentials
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('cs-pixel-game-db-efd319aa286d.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(THIS_CREDENTIALS, scope)
     gc = gspread.authorize(credentials)
 
     # open & return spreadsheet
