@@ -1,5 +1,5 @@
 import os
-from scoreboard._connect import connect
+from lib.game_functions.scoreboard._connect import connect
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 NAME = 'scoreboard.txt'
