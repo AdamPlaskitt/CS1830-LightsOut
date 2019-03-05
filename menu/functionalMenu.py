@@ -6,7 +6,7 @@ except:
 import math
 import random
 
-from lib.util.Vector import Vector
+from lib.util.vector import Vector
 
 CANVASWIDTH = 500
 CANVASHEIGHT = 500

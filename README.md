@@ -27,6 +27,10 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 ```
+
+>_it appears it still wants to uses urls for loading img,_
+>_as I was get a weird error when I tried to load a local one,_
+>_though that may just be me, if anyone can get it to work, please say how_
   
 ### gspread
 To install use cmd to run: 

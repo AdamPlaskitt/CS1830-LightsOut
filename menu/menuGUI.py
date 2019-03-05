@@ -4,7 +4,7 @@ except:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
     
 import math, random
-from lib.util.Vector import Vector
+from lib.util.vector import Vector
 
 CANVASWIDTH = 750
 CANVASHEIGHT = 750
