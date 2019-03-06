@@ -12,12 +12,16 @@ To use simpleGUI in pycharm or other idle:
 * Open the command prompt
 * Enter and run the following:
   * `python -m pip install --upgrade pip`
-  * `python -m tkinter`
   * `pip install pygame`
   * `pip install SimpleGUICS2Pygame`
+  * `pip install PyAutoGUI`
+  
+To use tkinter, which I think is need but not 100% certain, I now have a copy of it on a memory stick and can give it 
+to those who need it. It should come standard with python 3 onwards, to check it is there navigate to 
+`C:\Users\Adam Plaskitt\AppData\Local\Programs\Python\Python37-32\Lib` for windows users, and check that a file called 
+tkinter exists. As stated above I have copied this file to a memory stick and can give it to anyone who needs it.
 
-These install both tkinter (a prerqusite for SimpleGUICS2Pygame)
- and SimpleGUICS2Pygame (a simplegui emulator package) 
+These install both PyAutoGUI (a mouse and keyboard handler) and SimpleGUICS2Pygame (a simplegui emulator package) 
  
 When using SimpleGUICS2Pygame (simplegui) you want to import it as:
 
