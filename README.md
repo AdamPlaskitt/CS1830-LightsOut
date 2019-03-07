@@ -21,6 +21,9 @@ to those who need it. It should come standard with python 3 onwards, to check it
 `C:\Users\Adam Plaskitt\AppData\Local\Programs\Python\Python37-32\Lib` for windows users, and check that a file called 
 tkinter exists. As stated above I have copied this file to a memory stick and can give it to anyone who needs it.
 
+pygame is installed as a prerequisite for SimpleGUICS2Pygame, and for the use of pygame.mouse.get_pos(), to get 
+the position of the mouse.
+
 These install both PyAutoGUI (a mouse and keyboard handler) and SimpleGUICS2Pygame (a simplegui emulator package) 
  
 When using SimpleGUICS2Pygame (simplegui) you want to import it as:
