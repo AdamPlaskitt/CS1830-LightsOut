@@ -6,6 +6,8 @@ except ImportError:
 
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
+
+
 class Button:
     def __init__(self, canvas, pos, txt, colourTxt, colourBack):
         self.canvas = canvas
@@ -22,8 +24,10 @@ class Button:
         self.point4 = [self.pos[0] , self.pos[1] + CANVASHEIGHT/self.yRat]
 
     def draw(self):
-        self.canvas.draw_polygon([self.point1, self.point2, self.point3, self.point4], self.width, self.colourTxt , self.colourBack)
-        self.canvas.draw_text(self.txt, [self.pos[0]*4 , self.pos[1] + CANVASHEIGHT/self.yRat/2], 50, self.colourTxt , 'monospace')
+        self.canvas.draw_polygon([self.point1, self.point2, self.point3, self.point4], self.width, self.colourTxt,
+                                 self.colourBack)
+        self.canvas.draw_text(self.txt, [self.pos[0]*4 , self.pos[1] + CANVASHEIGHT/self.yRat/2], 50, self.colourTxt,
+                              'monospace')
 
 
 class Menu:
@@ -31,9 +35,9 @@ class Menu:
         self.startPos = [CANVASWIDTH/50, CANVASHEIGHT/2.5]
         self.helpPos = [CANVASWIDTH/50, CANVASHEIGHT/1.67]
         self.exitPos = [CANVASWIDTH/50, CANVASHEIGHT/1.25]
-        self.backPos = [[10,10], [10, 50],[50,50],[50,10]]
-        self.arrowPos = [[20,30],[30,40],[30,20]]
-        self.arrowShaftPos = [[30,30],[40,30]]
+        self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
+        self.arrowPos = [[20, 30], [30, 40], [30, 20]]
+        self.arrowShaftPos = [[30, 30], [40, 30]]
         self.backX = 50
         self.backY = 50
         self.isStart = False
@@ -42,12 +46,10 @@ class Menu:
         self.isMenu = True
         self.isExit = False
 
-
     def drag(self, pos):
         self.pos = pos
 
-
-    def click(self,pos):
+    def click(self, pos):
         self.pos = pos
 
         if self.isMenu and self.pos[1] > self.startButton.point1[1] and self.pos[1] < self.startButton.point4[1]:
@@ -76,8 +78,6 @@ class Menu:
             self.isHelp = False
             self.isLeader = False
             self.isMenu = True
-
-
 
     def draw(self, canvas):
         self.canvas = canvas
@@ -114,10 +114,8 @@ class Menu:
             self.helpButton.colourTxt = 'White'
             self.leaderButton.colourTxt = 'White'
 
-
-
         if self.isMenu:
-            self.canvas.draw_text("LightsOut",(CANVASWIDTH/7, CANVASHEIGHT/4), CANVASWIDTH/5, "White", 'monospace')
+            self.canvas.draw_text("LightsOut",(CANVASWIDTH/7, CANVASHEIGHT/4), CANVASWIDTH/7.5, "White", 'monospace')
             self.startButton.draw()
             self.helpButton.draw()
             self.leaderButton.draw()
@@ -136,17 +134,18 @@ class Menu:
             self.canvas.draw_polygon(self.arrowShaftPos, 4, "White")
 
         if self.isLeader:
-            self.canvas.draw_polygon(self.backPos, 4, "White")
-            self.canvas.draw_polygon(self.arrowPos, 4, "White")
-            self.canvas.draw_polygon(self.arrowShaftPos, 4, "White")
+            frame.stop()
+        #    self.canvas.draw_polygon(self.backPos, 4, "White")
+         #   self.canvas.draw_polygon(self.arrowPos, 4, "White")
+          #  self.canvas.draw_polygon(self.arrowShaftPos, 4, "White")
 
         if self.isExit:
             exit()
 
 
-
-frame = simplegui.create_frame("LightsOut", CANVASWIDTH, CANVASHEIGHT)
-menu = Menu()
-frame.set_draw_handler(menu.draw)
-frame.set_mouseclick_handler(menu.click)
-frame.start()
+if __name__ == '__main__':
+    frame = simplegui.create_frame("LightsOut", CANVASWIDTH, CANVASHEIGHT)
+    menu = Menu()
+    frame.set_draw_handler(menu.draw)
+    frame.set_mouseclick_handler(menu.click)
+    frame.start()
