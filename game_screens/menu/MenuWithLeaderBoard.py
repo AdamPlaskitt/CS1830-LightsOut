@@ -70,10 +70,8 @@ class Menu(States):
             self.isMenu = False
 
         if self.isMenu and self.leaderButton.point1[1] < self.pos[1] < self.leaderButton.point4[1]:
-            self.isStart = False
-            self.isHelp = False
-            self.isLeader = True
-            self.isMenu = False
+            self.next = 'leaderboard'
+            self.done = True
 
         if self.isMenu and self.pos[0] < self.backX and self.pos[1] < self.backY:
             self.isExit = True
@@ -138,9 +136,8 @@ class Menu(States):
             canvas.draw_polygon(self.arrowShaftPos, 4, "White")
 
         if self.isLeader:
-            canvas.draw_polygon(self.backPos, 4, "White")
-            canvas.draw_polygon(self.arrowPos, 4, "White")
-            canvas.draw_polygon(self.arrowShaftPos, 4, "White")
+            self.next = 'leaderboard'
+            self.done = True
 
         if self.isExit:
             exit()

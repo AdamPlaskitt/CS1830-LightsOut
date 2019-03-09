@@ -5,7 +5,7 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import sys
 from lib.state_machine.control import Control
-from game_screens.menu.MenuWithLeaderBoardTest import Menu
+from game_screens.menu.MenuWithLeaderBoard import Menu
 from game_screens.leaderboard import Leaderboard
 
 
@@ -26,7 +26,7 @@ def main():
 
     screen = simplegui.create_frame("LightsOut", settings.get('width'), settings.get('height'))
     screen.set_draw_handler(app.main_game_loop)
-    screen.set_mouseclick_handler(app.state.click)
+    screen.set_mouseclick_handler(app.event_loop)
     screen.start()
     sys.exit()
 

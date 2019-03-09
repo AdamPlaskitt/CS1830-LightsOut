@@ -30,11 +30,9 @@ class Control:
             self.flip_state()
         self.state.update(canvas)
 
-    def event_loop(self):
-        pass
-        # click handler?
+    def event_loop(self, pos):
+        self.state.click(pos)
 
     def main_game_loop(self, canvas):
-        self.event_loop()
         self.update(canvas)
         self.state.draw(canvas)
