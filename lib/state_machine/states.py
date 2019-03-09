@@ -4,6 +4,7 @@ class States(object):
         self.next = None
         self.quit = False
         self.previous = None
+        self.settings = {}
 
     # Overridable methods
     def clean_up(self):

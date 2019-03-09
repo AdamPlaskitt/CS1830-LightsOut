@@ -20,13 +20,15 @@ def main():
     settings = {
         'width': 1000,
         'height': 750,
+        'font': 'monospace',
         'fps': 60
     }
 
     app = Control()
     state_dict = {
-        'menus': Menu(),
-        'leaderboard': Leaderboard()
+        # passing settings into the states
+        'menus': Menu(settings),
+        'leaderboard': Leaderboard(settings)
     }
 
     app.setup_states(state_dict, 'menus')

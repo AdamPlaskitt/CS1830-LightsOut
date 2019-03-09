@@ -6,12 +6,9 @@ except ImportError:
 from lib.state_machine.states import States
 
 
-CANVASWIDTH = 1000
-CANVASHEIGHT = 750
-
-
 class Button:
-    def __init__(self, canvas, pos, txt, colour_txt, colour_back):
+    def __init__(self, canvas, pos, txt, colour_txt, colour_back, settings):
+        self.settings = settings
         self.canvas = canvas
         self.pos = pos
         self.xRat = 1.045
@@ -21,24 +18,26 @@ class Button:
         self.colourBack = colour_back
         self.txt = txt
         self.point1 = pos
-        self.point2 = [self.pos[0] + CANVASWIDTH/self.xRat, self.pos[1]]
-        self.point3 = [self.pos[0] + CANVASWIDTH/self.xRat, self.pos[1] + CANVASHEIGHT/self.yRat]
-        self.point4 = [self.pos[0], self.pos[1] + CANVASHEIGHT/self.yRat]
+        self.point2 = [self.pos[0] + self.settings.get('width')/self.xRat, self.pos[1]]
+        self.point3 = [self.pos[0] + self.settings.get('width')/self.xRat, self.pos[1] + self.settings.get('height')/self.yRat]
+        self.point4 = [self.pos[0], self.pos[1] + self.settings.get('height')/self.yRat]
 
     def draw(self):
         self.canvas.draw_polygon([self.point1, self.point2, self.point3, self.point4], self.width, self.colourTxt,
                                  self.colourBack)
-        self.canvas.draw_text(self.txt, [self.pos[0]*4, self.pos[1] + CANVASHEIGHT/self.yRat/2], 50, self.colourTxt,
-                              'monospace')
+        self.canvas.draw_text(self.txt, [self.pos[0] * 4, self.pos[1] + self.settings.get('height') / self.yRat / 2],
+                              50, self.colourTxt, self.settings.get('font'))
 
 
 class Menu(States):
-    def __init__(self):
+    def __init__(self, settings):
         States.__init__(self)
-        self.next = 'leaderboard'  # TODO, change to enum
-        self.startPos = [CANVASWIDTH / 50, CANVASHEIGHT / 2.5]
-        self.helpPos = [CANVASWIDTH / 50, CANVASHEIGHT / 1.67]
-        self.exitPos = [CANVASWIDTH / 50, CANVASHEIGHT / 1.25]
+        self.settings = settings
+        self.font = self.settings.get('font')
+        self.next = None
+        self.startPos = [self.settings.get('width') / 50, self.settings.get('height') / 2.5]
+        self.helpPos = [self.settings.get('width') / 50, self.settings.get('height') / 1.67]
+        self.exitPos = [self.settings.get('width') / 50, self.settings.get('height') / 1.25]
         self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
         self.arrowPos = [[20, 30], [30, 40], [30, 20]]
         self.arrowShaftPos = [[30, 30], [40, 30]]
@@ -84,9 +83,9 @@ class Menu(States):
 
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
-        self.startButton = Button(canvas, self.startPos, "Start", 'White', 'Black')
-        self.helpButton = Button(canvas, self.helpPos, "Help", 'White', 'Black')
-        self.leaderButton = Button(canvas, self.exitPos, "LeaderBoard", 'White', 'Black')
+        self.startButton = Button(canvas, self.startPos, "Start", 'White', 'Black', self.settings)
+        self.helpButton = Button(canvas, self.helpPos, "Help", 'White', 'Black', self.settings)
+        self.leaderButton = Button(canvas, self.exitPos, "LeaderBoard", 'White', 'Black', self.settings)
         if self.startButton.point1[1] < self.pos[1] < self.startButton.point4[1] * 1.1:
             self.startButton.colourBack = 'White'
             self.helpButton.colourBack = 'Black'
@@ -117,7 +116,8 @@ class Menu(States):
             self.leaderButton.colourTxt = 'White'
 
         if self.isMenu:
-            canvas.draw_text("LightsOut",(CANVASWIDTH/7, CANVASHEIGHT/4), CANVASWIDTH/7.5, "White", 'monospace')
+            canvas.draw_text("LightsOut", (self.settings.get('width') / 7, self.settings.get('height') / 4), self.settings.get('width')
+                             / 7.5, "White", self.font)
             self.startButton.draw()
             self.helpButton.draw()
             self.leaderButton.draw()
