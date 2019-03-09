@@ -2,15 +2,16 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-
+from lib.state_machine.states import States
 from lib.game_functions.scoreboard.scores import Scores
 
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
 
 
-class Leaderboard:
+class Leaderboard(States):
     def __init__(self):
+        States.__init__(self)
         self.startPos = [CANVASWIDTH/50, CANVASHEIGHT/2.5]
         self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
         self.arrowPos = [[20, 30], [30, 40], [30, 20]]
