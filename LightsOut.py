@@ -28,7 +28,7 @@ def main():
     app = Control()
     state_dict = {
         # passing settings into the states
-        'menus': Menu(settings),
+        'menu': Menu(settings),
         'leaderboard': Leaderboard(settings),
         'gameOver':  GameOver(settings)
     }

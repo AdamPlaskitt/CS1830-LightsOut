@@ -60,5 +60,6 @@ if __name__ == '__main__':
         'fps': 60
     }
     test = Leaderboard(settings)
+    test.set_up()
     frame.set_draw_handler(test.draw)
     frame.start()

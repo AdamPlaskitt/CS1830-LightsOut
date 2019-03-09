@@ -48,15 +48,15 @@ class Mouse:
 # Handler for mouse click
 # Handler to draw on canvas
 def draw(canvas):
-    canvas.draw_text(msg1, [(centreText(msg1, h1Size)), 2*(CANVASHEIGHT/9)], h1Size, "Red")
-    canvas.draw_text(msg2, [(centreText(msg2, h2Size)), 3*(CANVASHEIGHT/9)], h2Size, "Red")
-    canvas.draw_text(msg3, [(centreText(msg3, h2Size)), 4*(CANVASHEIGHT/9)], h2Size, "Red")
+    canvas.draw_text(msg1, [(centre_text(msg1, h1Size)), 2*(CANVASHEIGHT/9)], h1Size, "Red")
+    canvas.draw_text(msg2, [(centre_text(msg2, h2Size)), 3*(CANVASHEIGHT/9)], h2Size, "Red")
+    canvas.draw_text(msg3, [(centre_text(msg3, h2Size)), 4*(CANVASHEIGHT/9)], h2Size, "Red")
     canvas.draw_polygon(button1, 5, "White", "Black")
     canvas.draw_polygon(button2, 5, "White", "Black")
-    canvas.draw_text(msg4, [centreText(msg4,h3Size), 13.25*(CANVASHEIGHT/18)], h3Size, "Red")
-    canvas.draw_text(msg5, [centreText(msg5,h3Size), 16.25*(CANVASHEIGHT/18)], h3Size, "Red")
+    canvas.draw_text(msg4, [centre_text(msg4,h3Size), 13.25*(CANVASHEIGHT/18)], h3Size, "Red")
+    canvas.draw_text(msg5, [centre_text(msg5,h3Size), 16.25*(CANVASHEIGHT/18)], h3Size, "Red")
     print(m.pos.get_pos())
-def centreText(message, size):
+def centre_text(message, size):
     len = frame.get_canvas_textwidth(message, size)
     return ((CANVASWIDTH/2)-(len/2))
 # Create a frame and assign callbacks to event handlers
