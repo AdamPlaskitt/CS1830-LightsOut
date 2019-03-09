@@ -17,11 +17,13 @@ class Leaderboard(States):
         self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
         self.arrowPos = [[20, 30], [30, 40], [30, 20]]
         self.arrowShaftPos = [[30, 30], [40, 30]]
-        self.location, self.scores = Scores().get_scores()  # TODO implement threading to speed up load time
+        self.location, self.scores = Scores().get_scores()
         self.backX = 50
         self.backY = 50
         self.pos = None
         self.length = 10
+
+    def set_up(self):
         if len(self.scores) < self.length:
             self.length = len(self.scores)
         for i in range(self.length):
