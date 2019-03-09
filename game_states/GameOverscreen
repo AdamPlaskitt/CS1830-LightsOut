@@ -55,7 +55,7 @@ def draw(canvas):
     canvas.draw_polygon(button2, 5, "White", "Black")
     canvas.draw_text(msg4, [centreText(msg4,h3Size), 13.25*(CANVASHEIGHT/18)], h3Size, "Red")
     canvas.draw_text(msg5, [centreText(msg5,h3Size), 16.25*(CANVASHEIGHT/18)], h3Size, "Red")
-    print(m.pos.getP())
+    print(m.pos.get_pos())
 def centreText(message, size):
     len = frame.get_canvas_textwidth(message, size)
     return ((CANVASWIDTH/2)-(len/2))

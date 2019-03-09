@@ -5,11 +5,18 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import sys
 from lib.state_machine.control import Control
-from game_screens.menu.MenuWithLeaderBoard import Menu
-from game_screens.leaderboard import Leaderboard
+from game_states.menu import Menu
+from game_states.leaderboard import Leaderboard
 
 
+# main function to be run
 def main():
+    """settings:
+    game settings to be used by control.State
+    state_dict:
+    dictionary of the states and the call code
+    create screen assigning handlers from app to screen
+    """
     settings = {
         'width': 1000,
         'height': 750,
@@ -18,15 +25,16 @@ def main():
 
     app = Control()
     state_dict = {
-        'menu': Menu(),
+        'menus': Menu(),
         'leaderboard': Leaderboard()
     }
 
-    app.setup_states(state_dict, 'menu')
+    app.setup_states(state_dict, 'menus')
 
     screen = simplegui.create_frame("LightsOut", settings.get('width'), settings.get('height'))
     screen.set_draw_handler(app.main_game_loop)
     screen.set_mouseclick_handler(app.event_loop)
+    # start the game screen
     screen.start()
     sys.exit()
 

@@ -11,7 +11,7 @@ import math
 # The Vector class
 class Vector:
 
-    # Initialiser
+    # Initializer
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
@@ -30,8 +30,8 @@ class Vector:
 
         # Returns a tuple with the point corresponding to the vector
 
-    def getP(self):
-        return (self.x, self.y)
+    def get_pos(self):
+        return self.x, self.y
 
     # Returns a copy of the vector
     def copy(self):
@@ -44,7 +44,7 @@ class Vector:
         return self
 
     def __add__(self, other):
-        return self.copy().add(other);
+        return self.copy().add(other)
 
     # Negates the vector (makes it point in the opposite direction)
     def negate(self):
@@ -84,7 +84,7 @@ class Vector:
         return self.divide(self.length())
 
     # Returns a normalized version of the vector
-    def getNormalized(self):
+    def get_normalized(self):
         return self.copy().normalize()
 
     # Returns the dot product of this vector with another one
@@ -96,7 +96,7 @@ class Vector:
         return math.sqrt(self.x ** 2 + self.y ** 2)
 
     # Returns the squared length of the vector
-    def lengthSquared(self):
+    def length_squared(self):
         return self.x ** 2 + self.y ** 2
 
     # Reflect this vector on a normal

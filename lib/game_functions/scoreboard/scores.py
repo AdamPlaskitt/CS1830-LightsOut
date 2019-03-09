@@ -7,7 +7,8 @@ LOCATION = '{this_dir}{connector}{name}'.format(this_dir=THIS_DIR, connector='/'
 
 
 class Scores:
-    def get_scores(self):
+    @staticmethod
+    def get_scores():
         """
         :return: title, list_of_scores
         """
@@ -73,7 +74,7 @@ class Scores:
         """
         add a score to a scoreboard
         :type name: string
-        :type score: int
+        :type new_score: int
         :return:
         """
         list_scores = []
@@ -170,18 +171,19 @@ class Scores:
         pass
 
     # add score to 2d list using insertion sort
-    def _insert_score(self, list, item):
-        for index in range(len(list)):
-            if item[0] > list[index][0]:
-                list.insert(index, item)
+    @staticmethod
+    def _insert_score(list_scores, item):
+        for index in range(len(list_scores)):
+            if item[0] > list_scores[index][0]:
+                list_scores.insert(index, item)
                 break
-            elif item[0] == list[index][0]:
-                if item[1] < list[index][1]:
-                    list.insert(index, item)
+            elif item[0] == list_scores[index][0]:
+                if item[1] < list_scores[index][1]:
+                    list_scores.insert(index, item)
                     break
-                elif item[1] == list[index][1]:
+                elif item[1] == list_scores[index][1]:
                     break
-        return list
+        return list_scores
 
 
 if __name__ == '__main__':

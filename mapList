@@ -13,7 +13,7 @@ class Player:
         self.colour = 'Green'
 
     def draw(self, canvas):
-        canvas.draw_circle(self.pos.getP(), self.radius, 1, self.colour, self.colour)
+        canvas.draw_circle(self.pos.get_pos(), self.radius, 1, self.colour, self.colour)
         
     def update(self):
         self.pos.add(self.vel)
@@ -29,7 +29,7 @@ class Obstacle:
         self.colour = 'Red'
 
     def draw(self, canvas):
-        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 30, self.colour)
+        canvas.draw_line(self.startPos.get_pos(), self.endPos.get_pos(), 30, self.colour)
         
     def update(self):
         self.startPos.add(self.vel)

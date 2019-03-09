@@ -1,18 +1,17 @@
 try:
     import simplegui
-except:
+except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import random
 
 
 class SpriteSheet:
-    def __init__(self, img, columns, rows, X, Y):
+    def __init__(self, img, columns, rows, x, y):
         """
         :param img: img
         :param columns: amount of columns
         :param rows: amount of rows
-        :param X: pos
-        :param Y: pos
+        :param x: pos
+        :param y: pos
         """
         self.end = False
         self.img = img
@@ -23,9 +22,10 @@ class SpriteSheet:
         self.frameHeight = (img.get_height() / rows)
         self.frameCentreX = self.frameWidth / 2
         self.frameCentreY = self.frameHeight / 2
-        self.X = X
-        self.Y = Y
+        self.X = x
+        self.Y = y
 
+    # draw the image to the canvas
     def draw(self, canvas, frame_index):
         canvas.draw_image(self.img, (self.frameWidth * frame_index[0] + self.frameCentreX,
                                      self.frameHeight * frame_index[1] + self.frameCentreY),  # center_source
@@ -33,6 +33,7 @@ class SpriteSheet:
                           (self.X, self.Y),  # center_dest
                           (100, 100))
 
+    # load the next frame
     def next_frame(self, offset):
         if not (self.frameIndex[1] == self.rows - 1 and self.frameIndex[0] == offset - 1):
             self.end = False
@@ -51,6 +52,7 @@ class SpriteSheet:
         if self.frameIndex[1] == self.rows - 1 and self.frameIndex[0] == offset - 2:
             self.end = True
 
+    # load the previous frame
     def previous_frame(self, offset):
         if not (self.frameIndex[1] == self.rows - 1 and self.frameIndex[0] > offset):
             self.end = False
