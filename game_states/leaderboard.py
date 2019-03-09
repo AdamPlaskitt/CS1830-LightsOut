@@ -12,7 +12,7 @@ class Leaderboard(States):
         States.__init__(self)
         self.settings = settings_arg
         self.font = self.settings.get('font')
-        self.next = 'menus'
+        self.next = 'menu'
         self.startPos = [self.settings.get('width')/50, self.settings.get('height')/2.5]
         self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
         self.arrowPos = [[20, 30], [30, 40], [30, 20]]

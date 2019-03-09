@@ -16,6 +16,7 @@ class Control:
         self.state_dict = state_dict
         self.state_name = start_state
         self.state = self.state_dict[self.state_name]
+        self.state.set_up()
 
     # change state
     def flip_state(self):
