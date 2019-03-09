@@ -7,6 +7,7 @@ import sys
 from lib.state_machine.control import Control
 from game_states.menu import Menu
 from game_states.leaderboard import Leaderboard
+from game_states.game_over import GameOver
 
 
 # main function to be run
@@ -28,10 +29,11 @@ def main():
     state_dict = {
         # passing settings into the states
         'menus': Menu(settings),
-        'leaderboard': Leaderboard(settings)
+        'leaderboard': Leaderboard(settings),
+        'gameOver':  GameOver(settings)
     }
 
-    app.setup_states(state_dict, 'menus')
+    app.setup_states(state_dict, 'menu')
 
     screen = simplegui.create_frame("LightsOut", settings.get('width'), settings.get('height'))
     screen.set_draw_handler(app.main_game_loop)
