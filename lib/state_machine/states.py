@@ -33,7 +33,7 @@ class States(object):
         pass
 
     def update(self, canvas):
-        self.draw(canvas)
+        pass
 
     # Override to use for none rectangles
     def is_in_bounds(self, bounds, pos):
