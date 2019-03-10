@@ -1,3 +1,9 @@
+try:
+    import simplegui
+except ImportError:
+    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+
+
 class States(object):
     def __init__(self):
         self.done = False
@@ -6,18 +12,24 @@ class States(object):
         self.previous = None
         self.settings = {}
         self.pos = None
+        self.key_pressed = False
+        self.key = None
 
     # Overridable methods
     def clean_up(self):
         pass
 
     def set_up(self):
-        pass
+        self.key_pressed = False
+        self.key = None
 
     def draw(self, canvas):
         pass
 
     def click(self, pos):
+        pass
+
+    def key_reader(self):
         pass
 
     def update(self, canvas):
@@ -38,3 +50,10 @@ class States(object):
         if x_min < pos[0] < x_max and y_min < pos[1] < y_max:
             return True
         return False
+
+    # Don't override
+    def key_listener(self, key):
+        for label, value in simplegui.KEY_MAP.items():
+            if value == key:
+                self.key_pressed = True
+                self.key = label.upper()

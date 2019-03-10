@@ -53,6 +53,7 @@ class Menu(States):
     def drag(self, pos):
         self.pos = pos
 
+    # Override
     def click(self, pos):
         self.pos = pos
 
@@ -81,6 +82,7 @@ class Menu(States):
             self.isLeader = False
             self.isMenu = True
 
+    # Override
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
         self.startButton = Button(canvas, self.startPos, "Start", 'White', 'Black', self.settings)

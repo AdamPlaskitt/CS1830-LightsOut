@@ -23,7 +23,10 @@ class Leaderboard(States):
         self.pos = None
         self.length = 10
 
+    # Override
     def set_up(self):
+        self.key_pressed = False
+        self.key = None
         if len(self.scores) < self.length:
             self.length = len(self.scores)
         for i in range(self.length):
@@ -31,6 +34,7 @@ class Leaderboard(States):
             for j in range(13-chars):
                 self.scores[i][0] = str(self.scores[i][0]) + '-'
 
+    # Override
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
         canvas.draw_text("Leaderboard", (self.settings.get('width') / 7, self.settings.get('height') / 7),
@@ -46,6 +50,7 @@ class Leaderboard(States):
             canvas.draw_text(self.scores[i][1], (self.settings.get('width') / 2, (self.settings.get('height') / 3)
                                                  + (i * 50)), self.settings.get('width') / 20, "White", self.font)
 
+    # Override
     def click(self, pos):
         if pos[0] < self.backX and pos[1] < self.backY:
             self.done = True
@@ -62,4 +67,6 @@ if __name__ == '__main__':
     test = Leaderboard(settings)
     test.set_up()
     frame.set_draw_handler(test.draw)
+    frame.set_mouseclick_handler(test.click)
+    frame.set_keydown_handler(test.key_listener)
     frame.start()

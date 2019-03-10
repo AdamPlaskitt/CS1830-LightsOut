@@ -38,6 +38,7 @@ class GameOver(States):
         self.msg = {'title': "Game Over!",
                     'score': "Score: {value} ",
                     'enter': "Enter your name for the leaderboard:",
+                    'name': "",
                     'sub': "Submit",
                     'main': "Main Menu"
                     }
@@ -49,37 +50,57 @@ class GameOver(States):
         self.pos = None
         self.sub_button = None
         self.main_button = None
+        self.button_submit_no_offset = None
+        self.button_main_no_offset = None
 
+    # Override
     def set_up(self):
+        self.key_pressed = False
+        self.key = None
         x_offset = 250
         y_offset = 24
-        bp1 = (200+x_offset, 500+y_offset)
-        bp2 = (200+x_offset, 580+y_offset)
-        bp3 = (self.settings.get('width')-200 + x_offset, 500+y_offset)
-        bp4 = (self.settings.get('width')-200 + x_offset, 580+y_offset)
-        self.button_submit = [bp1, bp2, bp3, bp4]
-        bp5 = (200+x_offset, 627+y_offset)
-        bp6 = (200+x_offset, 627+80+y_offset)
-        bp7 = (self.settings.get('width')-200+x_offset, 627+y_offset)
-        bp8 = (self.settings.get('width')-200+x_offset, 627+80+y_offset)
-        self.button_main = [bp5, bp6, bp7, bp8]
+        bp1o = (200+x_offset, 500+y_offset)
+        bp2o = (200+x_offset, 580+y_offset)
+        bp3o = (self.settings.get('width')-200 + x_offset, 500+y_offset)
+        bp4o = (self.settings.get('width')-200 + x_offset, 580+y_offset)
+        self.button_submit = [bp1o, bp2o, bp3o, bp4o]
+        bp1 = (200, 500)
+        bp2 = (200, 580)
+        bp3 = (self.settings.get('width') - 200, 500)
+        bp4 = (self.settings.get('width') - 200, 580)
+        self.button_submit_no_offset = [bp1, bp2, bp3, bp4]
 
-        print(self.msg)
+        bp5o = (200+x_offset, 627+y_offset)
+        bp6o = (200+x_offset, 627+80+y_offset)
+        bp7o = (self.settings.get('width')-200+x_offset, 627+y_offset)
+        bp8o = (self.settings.get('width')-200+x_offset, 627+80+y_offset)
+        self.button_main = [bp5o, bp6o, bp7o, bp8o]
+        bp5 = (200, 627)
+        bp6 = (200, 627 + 80)
+        bp7 = (self.settings.get('width') - 200, 627)
+        bp8 = (self.settings.get('width') - 200, 627 + 80)
+
+        self.button_main_no_offset = [bp5, bp6, bp7, bp8]
         value = '---'  # get value
         self.msg.update({'score': self.msg.get('score').format(value=value)})
-        print(self.msg)
 
+    # Override
     def click(self, pos):
         self.pos = pos
-        print(pos)
-        if self.is_in_bounds(self.button_submit, self.pos):
+        if self.is_in_bounds(self.button_submit_no_offset, self.pos):
             pass
-        if self.is_in_bounds(self.button_main, self.pos):
+        if self.is_in_bounds(self.button_main_no_offset, self.pos):
             self.next = 'menu'
             self.done = True
 
+    def key_reader(self):
+        if self.key_pressed:
+            self.key_pressed = False
+            self.msg.update({'name': '{name}{add}'.format(name=self.msg.get('name'), add=self.key)})
+
     # Handler for mouse click
     # Handler to draw on canvas
+    # Override
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
         canvas.draw_text(self.msg.get('title'),
@@ -90,6 +111,9 @@ class GameOver(States):
                          "White")
         canvas.draw_text(self.msg.get('enter'),
                          [self.settings.get('width') / 2 - 175, 4 * (self.settings.get('height') / 9)], self.h2Size,
+                         "White")
+        canvas.draw_text(self.msg.get('name'),
+                         [self.settings.get('width') / 2 - 175, 5 * (self.settings.get('height') / 9)], self.h3Size,
                          "White")
         self.sub_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 3],
                                  self.msg.get('sub'), 'White', 'Black', self.settings, self.settings.get('width') - 400)
@@ -124,4 +148,5 @@ if __name__ == '__main__':
     test.set_up()
     frame.set_draw_handler(test.draw)
     frame.set_mouseclick_handler(test.click)
+    frame.set_keydown_handler(test.key_listener)
     frame.start()

@@ -4,6 +4,9 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
+# The control class (and its dependencies in State) is a modified version of the control class from the tutorial at
+# https://python-forum.io/Thread-PyGame-Creating-a-state-machine?fbclid=IwAR2cWol3wi134xyNpRQOh0Bpf_q6i7sYRxjyH5IW
+# -qMyEAZlxWYDim7B488
 class Control:
     def __init__(self):
         self.done = False
@@ -33,6 +36,11 @@ class Control:
         elif self.state.done:
             self.flip_state()
         self.state.update(canvas)
+
+    # key_handler
+    def key_board_loop(self, key):
+        self.state.key_listener(key)
+        self.state.key_reader()
 
     # click handler
     def event_loop(self, pos):
