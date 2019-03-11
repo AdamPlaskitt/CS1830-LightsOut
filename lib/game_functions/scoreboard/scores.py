@@ -77,6 +77,10 @@ class Scores:
         :type new_score: int
         :return:
         """
+        self.new_score = new_score
+        if name == '':
+            name = 'ANONYMOUS'
+        self.name = name
         list_scores = []
         # update google sheets scoreboard
         # attempt google sheets connection
@@ -100,7 +104,8 @@ class Scores:
             print(e)
         # added score to list in sorted manner
         try:
-            sorted_scores = self._insert_score(list_scores, [new_score, name])
+            print([self.new_score, self.name])
+            sorted_scores = self._insert_score(list_scores, [self.new_score, self.name])
         except Exception as e:
             print(e)
         for i in range(len(sorted_scores)):
@@ -183,9 +188,11 @@ class Scores:
                     break
                 elif item[1] == list_scores[index][1]:
                     break
+            elif index == len(list_scores)-1:
+                list_scores.append(item)
         return list_scores
 
 
 if __name__ == '__main__':
-    Scores().add_score(400, 'a')
+    Scores().add_score(200, 'a')
     pass

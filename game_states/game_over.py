@@ -4,6 +4,7 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.state_machine.states import States
+from lib.game_functions.scoreboard.scores import Scores
 
 
 class Button:
@@ -31,10 +32,10 @@ class Button:
 
 
 class GameOver(States):
-    def __init__(self, settings):
+    def __init__(self, settings_arg):
         States.__init__(self)
-        self.settings = settings
-        self.score = None  # change to function
+        self.settings = settings_arg
+        self.score = 0  # change to function
         self.msg = {'title': "Game Over!",
                     'score': "Score: {value} ",
                     'enter': "Enter your name for the leaderboard:",
@@ -88,7 +89,8 @@ class GameOver(States):
     def click(self, pos):
         self.pos = pos
         if self.is_in_bounds(self.button_submit_no_offset, self.pos):
-            pass
+            Scores().add_score(self.score, self.msg.get('name'))
+            print('submit')
         if self.is_in_bounds(self.button_main_no_offset, self.pos):
             self.next = 'menu'
             self.done = True
