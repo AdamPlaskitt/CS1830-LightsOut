@@ -1,0 +1,152 @@
+# Git & Github Cheatsheet
+## Contents
+* What is Git and Github
+* Setting up Git
+    * How to install Git
+    * How to navigate in Git
+    * How to set up a Git repository
+* Beginners guide on how to use your Git repository
+    * Branching
+    * Committing
+    * Merging
+* Beginners guide on combining Git with Github
+    * Fetching
+    * Pushing
+    * Pull requests
+* Beginners guide to using issues on Github
+* Cheatsheet
+---
+
+## What is Git and Github
+* Github is the online version control system
+* Git is your local version control system that interacts with Github
+
+## Setting up Git
+
+### How to install Git
+*This guide is for windows*
+
+* Go to `https://git-scm.com/downloads` 
+and download the windows installer *(A mac installer can also be found on this page)*
+* Follow the installation wizard
+* `Git Bash` can then be launched from your desktop or start menu
+
+### How to navigate in Git
+*This guide is for windows*
+
+Git is based off `cmd` as such navigation is done with:
+* cd file_name
+    * move into file
+* cd ..
+    * move back by file
+###### Note
+You can string file_names and back statements together using the /
+
+eg: `../Users/name/Documents`
+
+### How to set up a Git repository
+*This guide shall clone an existing Github repository*
+
+Using the Git terminal navigate to the folder you want the repository to reside in. To then clone the Github 
+repository enter the following line:
+```
+$ git clone https://github.com/Bill-Ferny/CS1830-LightsOut
+```
+
+This will produce a folder called `CS1830-LightsOut`, this is your git repository
+
+## Beginners guide on how to use your Git repository
+Once you have your Git repository you can navigate into it and your current directory location should change to
+something like `Adam Plaskitt@DESKTOP-I8J9PS6 MINGW64 ~/Documents/Term 2/games lab/project, pixel-game/CS1830-pixel-game
+ (master)` *note: I have an old clone so my repository is called CS1830-pixel-game*
+ 
+ ### Branching
+ It is often better to work on a branch as it helps keep the master branch clean. To create a branch you use the 
+ 
+ ```
+ $ git branch branch_name
+ ```
+ 
+ And to change your working branch you use the command:
+ 
+ ```
+ $ git checkout branch_name
+ ```
+ 
+ When creating a new branch these two commands can be combined to create and move to a new branch:
+ 
+ ```
+ $ git checkout -b branch_name
+ ```
+ 
+ ### Committing
+ #### Adding
+ Before you can commit your modified code you must fist add your modified files to the 'stash' of files that 
+ are going to be committed, this is done in a few ways:
+ ```
+ $ git add file_name
+ $ git add file_path
+ $ git add folder_name
+ $ git add *
+ ```
+ 
+ By using * you add all files and folders from you current position
+ 
+ ##### .gitignore
+ A `.gitignore` file can be used to specify folders or fills to ignore when the `$ git add *` command is used
+ 
+ #### Committing
+ You commit the files in a branches stash by using the command, with message being the commit message:
+ 
+ ```
+ $ git commit -m "message"
+ ```
+ 
+ ### Merging
+ You can merge to branches together by navigating to the branch you want to merge into and entering the line:
+ 
+ ```
+ $ git merge branch_name
+ ```
+ 
+ ## Beginners guide on combining Git with Github
+ * Fetching is used to get code from Github and update your local repository
+ * Pushing is used to put your local code on the Github repository
+ * Pull requests are used to merge other branches into the master branch
+ ### Fetching
+ To fetch all branches from Github use the line bellow, to specify a specific branch add the branch_name to the command
+ ```
+ $ git fetch origin 
+ ```
+ This saves the branches to branches named `origin/branch_name` from this you can then merge into them.
+ ### Pushing
+ To push a branch to the Github use the line bellow:
+ ```
+$ git push branch_name
+```
+### Pull requests
+To open a pull request on Github, you navigate to the 'Code' tab and click on `new pull request` 
+On the page this opens you change the 'compare' branch to the branch you want to pull into master. Write a comment 
+about what you changed while working on this branch. The click `Create pull request`. It will then tell you if they 
+can be merged straight away or if revisions 'conflicts' need to be fixed/changed. Once this is done use the merge 
+button to merge the pull request into master.
+
+## Beginners guide to using issues on Github
+On the issues tab of Github you can see the issues 'tasks' that exist. If you want to work on one, change the 
+assignee to yourself, so others know someone is working on it. I suggest making a new branch for each issue. 
+Upon completing what is needed for the issue, push the branch to Github and open a pull request between it and 
+master. Once this pull request is successful close the issue.
+
+## Cheatsheet
+* `$ git clone https://github.com/Bill-Ferny/CS1830-LightsOut` - Clones the Github repository to a local file
+* `$ git branch branch_name` - Creates a branch named branch_name
+* `$ git checkout branch_name` - Moves you into a branch called branch_name
+* `$ git checkout -b branch_name` - Creates and moves you into a branch called branch_name
+* `$ git add file` - Adds the file to the stash
+* `$ git add *` - Adds all files to the stash
+* `$ git status` - Shows which files have and haven't been added to the stash
+* `$ git commit -m "message"` - Commits the stash, with the commit message
+* `$ git merge branch_name` - Merges a branch called branch_name into your current branch
+* `$ git fetch origin ` - Fetch the branches from Github into branches named origin/branch_name
+    * `$ git fetch origin branch_name` - Fetch the branch_name from Github into a branch named origin/branch_name
+* `$ git push branch_name` - Push the branch called branch_name onto Github
