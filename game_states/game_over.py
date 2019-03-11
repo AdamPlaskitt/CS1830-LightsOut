@@ -53,9 +53,11 @@ class GameOver(States):
         self.main_button = None
         self.button_submit_no_offset = None
         self.button_main_no_offset = None
+        self.entered = False
 
     # Override
     def set_up(self):
+        self.entered = False
         self.key_pressed = False
         self.key = None
         x_offset = 250
@@ -88,9 +90,9 @@ class GameOver(States):
     # Override
     def click(self, pos):
         self.pos = pos
-        if self.is_in_bounds(self.button_submit_no_offset, self.pos):
+        if self.is_in_bounds(self.button_submit_no_offset, self.pos) and not self.entered:
             Scores().add_score(self.score, self.msg.get('name'))
-            print('submit')
+            self.entered = True
         if self.is_in_bounds(self.button_main_no_offset, self.pos):
             self.next = 'menu'
             self.done = True
@@ -122,7 +124,7 @@ class GameOver(States):
         self.main_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 6],
                                   self.msg.get('main'), 'White', 'Black', self.settings,
                                   self.settings.get('width') - 400)
-        if self.is_in_bounds(self.button_submit, self.pos):
+        if self.is_in_bounds(self.button_submit, self.pos) and not self.entered:
             self.sub_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 3],
                                      self.msg.get('sub'), 'Black', 'White', self.settings,
                                      self.settings.get('width') - 400)
