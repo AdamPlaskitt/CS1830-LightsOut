@@ -1,7 +1,8 @@
 class Enemy(object):
     def __init__(self, position, visible, light, attack_str=10, speed=10, max_health=50, heal=1):
         # TODO update default values
-        self.health = max_health
+        self.max_health = max_health
+        self.health = self.max_health
         self.speed = speed
         self.attack_str = attack_str
         self.visible = visible
@@ -43,4 +44,7 @@ class Enemy(object):
 
     def healing(self):
         if not self.is_fleeing() and self.is_alive():
-            self.health = self.health + self.heal
+            if self.health < self.max_health:
+                self.health = self.health + self.heal
+        if self.health > self.max_health:
+            self.health = self.max_health
