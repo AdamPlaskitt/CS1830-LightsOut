@@ -77,6 +77,8 @@ class Scores:
         :type new_score: int
         :return:
         """
+        if name == '':
+            name = 'ANONYMOUS'
         list_scores = []
         # update google sheets scoreboard
         # attempt google sheets connection
@@ -183,9 +185,11 @@ class Scores:
                     break
                 elif item[1] == list_scores[index][1]:
                     break
+            elif index == len(list_scores)-1:
+                list_scores.append(item)
         return list_scores
 
 
 if __name__ == '__main__':
-    Scores().add_score(400, 'a')
+    Scores().add_score(200, 'a')
     pass

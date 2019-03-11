@@ -4,6 +4,7 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.state_machine.states import States
+from lib.game_functions.scoreboard.scores import Scores
 
 
 class Button:
@@ -31,10 +32,10 @@ class Button:
 
 
 class GameOver(States):
-    def __init__(self, settings):
+    def __init__(self, settings_arg):
         States.__init__(self)
-        self.settings = settings
-        self.score = None  # change to function
+        self.settings = settings_arg
+        self.score = 0  # change to function
         self.msg = {'title': "Game Over!",
                     'score': "Score: {value} ",
                     'enter': "Enter your name for the leaderboard:",
@@ -52,9 +53,11 @@ class GameOver(States):
         self.main_button = None
         self.button_submit_no_offset = None
         self.button_main_no_offset = None
+        self.entered = False
 
     # Override
     def set_up(self):
+        self.entered = False
         self.key_pressed = False
         self.key = None
         x_offset = 250
@@ -87,8 +90,9 @@ class GameOver(States):
     # Override
     def click(self, pos):
         self.pos = pos
-        if self.is_in_bounds(self.button_submit_no_offset, self.pos):
-            pass
+        if self.is_in_bounds(self.button_submit_no_offset, self.pos) and not self.entered:
+            Scores().add_score(self.score, self.msg.get('name'))
+            self.entered = True
         if self.is_in_bounds(self.button_main_no_offset, self.pos):
             self.next = 'menu'
             self.done = True
@@ -120,7 +124,7 @@ class GameOver(States):
         self.main_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 6],
                                   self.msg.get('main'), 'White', 'Black', self.settings,
                                   self.settings.get('width') - 400)
-        if self.is_in_bounds(self.button_submit, self.pos):
+        if self.is_in_bounds(self.button_submit, self.pos) and not self.entered:
             self.sub_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 3],
                                      self.msg.get('sub'), 'Black', 'White', self.settings,
                                      self.settings.get('width') - 400)

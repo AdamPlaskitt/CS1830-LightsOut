@@ -17,7 +17,7 @@ class Leaderboard(States):
         self.backPos = [[10, 10], [10, 50], [50, 50], [50, 10]]
         self.arrowPos = [[20, 30], [30, 40], [30, 20]]
         self.arrowShaftPos = [[30, 30], [40, 30]]
-        self.location, self.scores = Scores().get_scores()
+        self.location, self.scores = None, None
         self.backX = 50
         self.backY = 50
         self.pos = None
@@ -25,6 +25,7 @@ class Leaderboard(States):
 
     # Override
     def set_up(self):
+        self.location, self.scores = Scores().get_scores()
         self.key_pressed = False
         self.key = None
         if len(self.scores) < self.length:
