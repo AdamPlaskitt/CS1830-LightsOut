@@ -46,13 +46,11 @@ class GameOver(States):
         self.h1Size = 48
         self.h2Size = 24
         self.h3Size = 18
-        self.button_submit = None
-        self.button_main = None
-        self.pos = None
         self.sub_button = None
         self.main_button = None
-        self.button_submit_no_offset = None
-        self.button_main_no_offset = None
+        self.pos = None
+        self.button_submit = None
+        self.button_main = None
         self.entered = False
 
     # Override
@@ -60,40 +58,29 @@ class GameOver(States):
         self.entered = False
         self.key_pressed = False
         self.key = None
-        x_offset = 250
-        y_offset = 24
-        bp1o = (200+x_offset, 500+y_offset)
-        bp2o = (200+x_offset, 580+y_offset)
-        bp3o = (self.settings.get('width')-200 + x_offset, 500+y_offset)
-        bp4o = (self.settings.get('width')-200 + x_offset, 580+y_offset)
-        self.button_submit = [bp1o, bp2o, bp3o, bp4o]
+        # the boundaries of the button
         bp1 = (200, 500)
         bp2 = (200, 580)
         bp3 = (self.settings.get('width') - 200, 500)
         bp4 = (self.settings.get('width') - 200, 580)
-        self.button_submit_no_offset = [bp1, bp2, bp3, bp4]
+        self.button_submit = [bp1, bp2, bp3, bp4]
 
-        bp5o = (200+x_offset, 627+y_offset)
-        bp6o = (200+x_offset, 627+80+y_offset)
-        bp7o = (self.settings.get('width')-200+x_offset, 627+y_offset)
-        bp8o = (self.settings.get('width')-200+x_offset, 627+80+y_offset)
-        self.button_main = [bp5o, bp6o, bp7o, bp8o]
         bp5 = (200, 627)
         bp6 = (200, 627 + 80)
         bp7 = (self.settings.get('width') - 200, 627)
         bp8 = (self.settings.get('width') - 200, 627 + 80)
 
-        self.button_main_no_offset = [bp5, bp6, bp7, bp8]
+        self.button_main = [bp5, bp6, bp7, bp8]
         value = '---'  # get value
         self.msg.update({'score': self.msg.get('score').format(value=value)})
 
     # Override
     def click(self, pos):
         self.pos = pos
-        if self.is_in_bounds(self.button_submit_no_offset, self.pos) and not self.entered:
+        if self.is_in_bounds(self.button_submit, self.pos) and not self.entered:
             Scores().add_score(self.score, self.msg.get('name'))
             self.entered = True
-        if self.is_in_bounds(self.button_main_no_offset, self.pos):
+        if self.is_in_bounds(self.button_main, self.pos):
             self.next = 'menu'
             self.done = True
 
@@ -108,7 +95,7 @@ class GameOver(States):
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
         canvas.draw_text(self.msg.get('title'),
-                         [self.settings.get('width') / 2 - 120, 2 * (self.settings.get('height') / 9)], self.h1Size,
+                         [0, 2 * (self.settings.get('height') / 9)], self.h1Size,
                          "Red")
         canvas.draw_text(self.msg.get('score'),
                          [self.settings.get('width') / 2 - 50, 3 * (self.settings.get('height') / 9)], self.h2Size,
@@ -134,10 +121,6 @@ class GameOver(States):
                                       self.settings.get('width') - 400)
         self.sub_button.draw()
         self.main_button.draw()
-
-    #def centre_text(self, message, size):
-     #   len = frame.get_canvas_textwidth(message, size)
-      #  return (self.settings.get('width')/2)-(len/2)
 
 
 if __name__ == '__main__':
