@@ -95,7 +95,7 @@ class GameOver(States):
     def draw(self, canvas):
         self.pos = pygame.mouse.get_pos()
         canvas.draw_text(self.msg.get('title'),
-                         [0, 2 * (self.settings.get('height') / 9)], self.h1Size,
+                         [self.settings.get('width') / 2 - 120, 2 * (self.settings.get('height') / 9)], self.h1Size,
                          "Red")
         canvas.draw_text(self.msg.get('score'),
                          [self.settings.get('width') / 2 - 50, 3 * (self.settings.get('height') / 9)], self.h2Size,
