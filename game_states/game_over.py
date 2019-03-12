@@ -124,7 +124,7 @@ class GameOver(States):
         self.main_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 6],
                                   self.msg.get('main'), 'White', 'Black', self.settings,
                                   self.settings.get('width') - 400)
-        if self.is_in_bounds(self.button_submit_no_offset, self.pos) and not self.entered:
+        if self.is_in_bounds(self.button_submit, self.pos) and not self.entered:
             self.sub_button = Button(canvas, [200, self.settings.get('height') - self.settings.get('height') / 3],
                                      self.msg.get('sub'), 'Black', 'White', self.settings,
                                      self.settings.get('width') - 400)
