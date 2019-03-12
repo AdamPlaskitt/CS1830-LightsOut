@@ -1,9 +1,9 @@
-import pygame
-from .util.vector import Vector
 try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+import pygame
+from lib.util.vector import Vector
 
 
 class Player:
@@ -22,7 +22,7 @@ class Player:
         self.frame_size = self.width / 3
 
     def draw(self, canvas):
-        canvas.drawimage(self.img, (100, 100), (100, 100), (100, 100), (100, 100), 0)
+        canvas.draw_image(self.img, (100, 100), (100, 100), (100, 100), (100, 100), 0)
 
     def update(self):
         self.update_mouse()
