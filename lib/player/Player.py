@@ -1,14 +1,15 @@
-import pygame
-from .util.vector import Vector
 try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+import pygame
+from lib.util.vector import Vector
 
 
 class Player:
 
     def __init__(self, x_pos, y_pos):
+
         self.pos = (x_pos, y_pos)
         self.max_health = 100
         self.health = self.max_health
@@ -22,7 +23,7 @@ class Player:
         self.frame_size = self.width / 3
 
     def draw(self, canvas):
-        canvas.drawimage(self.img, (100, 100), (100, 100), (100, 100), (100, 100), 0)
+        canvas.draw_image(self.img, (100, 100), (100, 100), (100, 100), (100, 100), 0)
 
     def update(self):
         self.update_mouse()
@@ -30,7 +31,8 @@ class Player:
 
     def update_mouse(self):
         self.mouse_pos = pygame.mouse.get_pos()
-        self.look_dir = Vector(self.mouse_pos[0], self.mouse_pos[1])
+        print(self.mouse_pos[1])
+        #self.look_dir = Vector(self.mouse_pos[0], self.mouse_pos[1])
 
     def update_sprite(self):
         if self.is_moving:
