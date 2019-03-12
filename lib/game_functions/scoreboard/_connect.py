@@ -1,5 +1,8 @@
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+try:
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+except ImportError:
+    print("ERROR: Please ensure that both the gspread and oauth2client packages are installed")
 import os
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
