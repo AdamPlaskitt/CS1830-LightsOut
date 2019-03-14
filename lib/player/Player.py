@@ -35,8 +35,7 @@ class Player:
 
     def draw(self, canvas):
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
-                          (self.frame_width, self.height), self.pos, (100, 100), self.rot)
-        canvas.draw_line(self.pos, self.mouse_pos, 2, 'Red')
+                          (self.frame_width, self.height), self.pos, (50, 50), self.rot)
 
     def update(self):
         self.update_rot()
