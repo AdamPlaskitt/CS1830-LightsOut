@@ -1,9 +1,10 @@
 #!/usr/bin/python
+import sys
 try:
     import simplegui
 except ImportError:
+    sys.argv.append('--no-controlpanel')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import sys
 from lib.state_machine.control import Control
 from game_states.menu import Menu
 from game_states.leaderboard import Leaderboard
@@ -33,7 +34,7 @@ def main():
         'gameOver':  GameOver(settings)
     }
 
-    app.setup_states(state_dict, 'menu')
+    app.setup_states(state_dict, 'gameOver')
 
     screen = simplegui.create_frame("LightsOut", settings.get('width'), settings.get('height'))
     screen.set_draw_handler(app.main_game_loop)
