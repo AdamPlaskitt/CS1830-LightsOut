@@ -1,13 +1,14 @@
-import sys
+import sys, pygame, os, math
 try:
     import simplegui
 except ImportError:
     sys.argv.append('--no-controlpanel')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import pygame
-from lib.util.vector import Vector
-import os
-import math
+from lib.player.interactions.keyboard import Keyboard
+from lib.player.interactions.player_move import PlayerMove
+from lib.player.interactions.change_slot import ChangeSlot
+from lib.player.inventory import Inventory
+
 
 class Player:
 
@@ -62,7 +63,6 @@ class Player:
                 (self.mouse_pos[0] - self.x) / math.sqrt(math.pow(self.mouse_pos[0] - self. x, 2) +
                                                          math.pow(self.mouse_pos[1] - self.y, 2))))
 
-
     def update_sprite(self):
         if self.is_moving:
             if self.frame_up:
@@ -80,53 +80,21 @@ class Player:
             self.dead = True
 
 
-class Keyboard:
-    def __init__(self):
-        self.move = False
-
-    def key_down(self, key):
-        if key == simplegui.KEY_MAP['right']:
-            self.move = True
-        if key == simplegui.KEY_MAP['left']:
-            self.move = True
-        if key == simplegui.KEY_MAP['up']:
-            self.move = True
-        if key == simplegui.KEY_MAP['down']:
-            self.move = True
-
-    def key_up(self, key):
-        if key == simplegui.KEY_MAP['right']:
-            self.move = False
-        if key == simplegui.KEY_MAP['left']:
-            self.move = False
-        if key == simplegui.KEY_MAP['up']:
-            self.move = False
-        if key == simplegui.KEY_MAP['down']:
-            self.move = False
-
-
-class PlayerMove:
-    def __init__(self, sprite, keyboard):
-        self.player = sprite
-        self.keyboard = keyboard
-
-    def update(self):
-        if self.keyboard.move:
-            self.player.is_moving = True
-        elif not self.keyboard.move:
-            self.player.is_moving = False
-
-
 if __name__ == '__main__':
     CANVASWIDTH = 500
     CANVASHEIGHT = 500
     player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2)
     kbd = Keyboard()
-    inter = PlayerMove(player, kbd)
+    player_move = PlayerMove(player, kbd)
+    inven = Inventory(3, 50)
+    change_slot = ChangeSlot(inven, kbd)
 
     def draw(canvas):
-        inter.update()
+        player_move.update()
+        change_slot.update()
         player.update()
+        inven.draw(canvas)
+        inven.update()
         player.draw(canvas)
 
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
