@@ -6,13 +6,12 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import math
 
-CANVASHEIGHT = 500
-CANVASWIDTH = 500
-
 
 class Inventory:
 
-    def __init__(self, slots, size):
+    def __init__(self, slots, size, CANVASWIDTH, CANVASHEIGHT):
+        self.screen_width = CANVASWIDTH
+        self.screen_height = CANVASHEIGHT
         self.slots = slots
         self.size = size
         self.bars = math.floor(self.slots / 2)
@@ -28,23 +27,26 @@ class Inventory:
         self.highlighted = 0
 
     def draw(self, canvas):
-        canvas.draw_line(((CANVASWIDTH / 2) - (self.size * self.slots / 2), CANVASHEIGHT - 10 - self.size),
-                         ((CANVASWIDTH / 2) + (self.size * self.slots / 2), CANVASHEIGHT - 10 - self.size), 5, 'White')
-        canvas.draw_line(((CANVASWIDTH / 2) - (self.size * self.slots / 2), CANVASHEIGHT - 10),
-                         ((CANVASWIDTH / 2) + (self.size * self.slots / 2), CANVASHEIGHT - 10), 5, 'White')
+        canvas.draw_line(((self.screen_width / 2) - (self.size * self.slots / 2), self.screen_height - 10 - self.size),
+                         ((self.screen_width / 2) + (self.size * self.slots / 2), self.screen_height - 10 - self.size),
+                         5, 'White')
+        canvas.draw_line(((self.screen_width / 2) - (self.size * self.slots / 2), self.screen_height - 10),
+                         ((self.screen_width / 2) + (self.size * self.slots / 2), self.screen_height - 10), 5, 'White')
         for i in range(-self.slots + self.bars, self.slots - self.bars):
-            canvas.draw_line(((CANVASWIDTH / 2) + (self.size * i) + self.size / 2, CANVASHEIGHT - 10 - self.size),
-                             ((CANVASWIDTH / 2) + (self.size * i) + self.size / 2, CANVASHEIGHT - 10), 5, 'White')
-        canvas.draw_polyline([((CANVASWIDTH / 2) + (self.size * (self.highlighted - self.slots / 2)),
-                               CANVASHEIGHT - 10 - self.size),
-                              ((CANVASWIDTH / 2) + (self.size * (self.highlighted - (self.slots / 2 - 1))),
-                               CANVASHEIGHT - 10 - self.size),
-                              ((CANVASWIDTH / 2) + (self.size * (self.highlighted - (self.slots / 2 - 1))),
-                               CANVASHEIGHT - 10),
-                              ((CANVASWIDTH / 2) + (self.size * (self.highlighted - self.slots / 2)),
-                               CANVASHEIGHT - 10),
-                              ((CANVASWIDTH / 2) + (self.size * (self.highlighted - self.slots / 2)),
-                               CANVASHEIGHT - 10 - self.size)], 7, 'Blue')
+            canvas.draw_line(((self.screen_width / 2) + (self.size * i) + self.size / 2,
+                              self.screen_height - 10 - self.size),
+                             ((self.screen_width / 2) + (self.size * i) + self.size / 2, self.screen_height - 10),
+                             5, 'White')
+        canvas.draw_polyline([((self.screen_width / 2) + (self.size * (self.highlighted - self.slots / 2)),
+                               self.screen_height - 10 - self.size),
+                              ((self.screen_width / 2) + (self.size * (self.highlighted - (self.slots / 2 - 1))),
+                               self.screen_height - 10 - self.size),
+                              ((self.screen_width / 2) + (self.size * (self.highlighted - (self.slots / 2 - 1))),
+                               self.screen_height - 10),
+                              ((self.screen_width / 2) + (self.size * (self.highlighted - self.slots / 2)),
+                               self.screen_height - 10),
+                              ((self.screen_width / 2) + (self.size * (self.highlighted - self.slots / 2)),
+                               self.screen_height - 10 - self.size)], 7, 'Blue')
 
     def update(self):
         if self.slot_1_selected:

@@ -12,18 +12,21 @@ from lib.player.inventory import Inventory
 
 class Player:
 
-    def __init__(self, x_pos, y_pos):
+    def __init__(self, x_pos, y_pos, lives):
 
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
         self.max_health = 100
         self.health = self.max_health
+        self.lives = lives
         self.dead = False
+        self.game_over = False
         self.is_moving = False
         self.mouse_pos = pygame.mouse.get_pos()
-        x = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/playersprite.jpg")
+        x = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/playersprite.png")
         self.img = simplegui._load_local_image(x)
+        # self.img = pygame.image.load(x).convert_alpha()
         self.height = 180
         self.width = 411
         self.frame_width = self.width / 3
@@ -77,16 +80,18 @@ class Player:
     def take_damage(self, damage):
         self.health -= damage
         if self.health <= 0:
-            self.dead = True
+            self.lives -= 1
+        if self.lives == 0:
+            self.game_over = True
 
 
 if __name__ == '__main__':
-    CANVASWIDTH = 500
-    CANVASHEIGHT = 500
-    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2)
+    CANVASWIDTH = 1000
+    CANVASHEIGHT = 750
+    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3)
     kbd = Keyboard()
     player_move = PlayerMove(player, kbd)
-    inven = Inventory(3, 50)
+    inven = Inventory(3, 100, CANVASWIDTH, CANVASHEIGHT)
     change_slot = ChangeSlot(inven, kbd)
 
     def draw(canvas):
@@ -98,6 +103,7 @@ if __name__ == '__main__':
         player.draw(canvas)
 
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
+    frame.set_canvas_background('Grey')
     frame.set_draw_handler(draw)
     frame.set_keydown_handler(kbd.key_down)
     frame.set_keyup_handler(kbd.key_up)
