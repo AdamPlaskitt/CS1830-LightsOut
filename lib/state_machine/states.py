@@ -55,5 +55,6 @@ class States(object):
     def key_listener(self, key):
         for label, value in simplegui.KEY_MAP.items():
             if value == key:
+                print(key)
                 self.key_pressed = True
                 self.key = label.upper()
