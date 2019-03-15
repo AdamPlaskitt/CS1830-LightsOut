@@ -12,8 +12,8 @@ from lib.player.inventory import Inventory
 
 class Player:
 
-    def __init__(self, x_pos, y_pos, lives):
-
+    def __init__(self, x_pos, y_pos, lives, inventory):
+        self.inven = inventory
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
@@ -40,8 +40,10 @@ class Player:
     def draw(self, canvas):
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
+        self.inven.draw(canvas)
 
     def update(self):
+        self.inven.update()
         self.update_rot()
         self.clock += 1
         if self.clock % self.speed == 0:
@@ -88,18 +90,16 @@ class Player:
 if __name__ == '__main__':
     CANVASWIDTH = 1000
     CANVASHEIGHT = 750
-    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3)
+    inven = Inventory(3, 100, CANVASWIDTH, CANVASHEIGHT)
+    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, inven)
     kbd = Keyboard()
     player_move = PlayerMove(player, kbd)
-    inven = Inventory(3, 100, CANVASWIDTH, CANVASHEIGHT)
     change_slot = ChangeSlot(inven, kbd)
 
     def draw(canvas):
         player_move.update()
         change_slot.update()
         player.update()
-        inven.draw(canvas)
-        inven.update()
         player.draw(canvas)
 
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
