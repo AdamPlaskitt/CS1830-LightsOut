@@ -25,7 +25,9 @@ class Player:
         self.is_moving = False
         self.mouse_pos = pygame.mouse.get_pos()
         x = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/playersprite.png")
+        y = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/heart.png")
         self.img = simplegui._load_local_image(x)
+        self.hpimg = simplegui._load_local_image(y)
         # self.img = pygame.image.load(x).convert_alpha()
         self.height = 180
         self.width = 411
@@ -41,11 +43,16 @@ class Player:
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
 
+
     def update(self):
+        self.update_health()
         self.update_rot()
         self.clock += 1
         if self.clock % self.speed == 0:
             self.update_sprite()
+
+    def update_health(self):
+        pass
 
     def update_rot(self):
         self.mouse_pos = pygame.mouse.get_pos()
