@@ -222,9 +222,9 @@ for map in Map:
 for obstacle in Map:
     Interactions.append(Interaction(obstacle, kbd))
 
-
+#####################################################################################
 def collide_check(walls, tmap):
-    
+    #this is what needs to be changed, not sure what values we need to use
     if (int(walls.startPos.getP()[0]*2) < screenPos.x+2 < int(walls.endPos.getP()[0]*2) and int(walls.startPos.getP()[1]*2) < screenPos.y+2 < int(walls.endPos.getP()[1]*2)) or (int(walls.startPos.getP()[0]*2) < screenPos.x-2 < int(walls.endPos.getP()[0]*2) and int(walls.startPos.getP()[1]*2) < screenPos.y-2 < int(walls.endPos.getP()[1]*2)):
         print ("True")
         return True
@@ -232,7 +232,7 @@ def collide_check(walls, tmap):
         #print(int(walls.startPos.getP()[0]*2))
         return False
 
-
+###################################################################################
 def draw(canvas):
     for inter in Interactions:
         inter.update()
@@ -254,5 +254,4 @@ frame.set_draw_handler(draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 frame.start()
-
 
