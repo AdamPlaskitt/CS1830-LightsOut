@@ -4,7 +4,7 @@ from user301_hPMHbpw1h9_0 import Vector
 CANVASHEIGHT = 614
 CANVASWIDTH = 614
 MIN_RAD = 1
-img = simplegui.load_image('https://raw.githubusercontent.com/Bill-Ferny/CS1830-LightsOut/master/gameMap.jpg')
+img = simplegui.load_image('https://raw.githubusercontent.com/Bill-Ferny/CS1830-LightsOut/master/textures/backgrounds/maps/gameMap.jpg')
 imgCentre = Vector(307, 307)
 mapZoom = 2
 screenPos = Vector(307,307)
@@ -35,7 +35,7 @@ class Obstacle:
         self.colour = 'Blue'
 
     def draw(self, canvas):
-        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 5, self.colour)
+        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 1, self.colour)
 
     def update(self):
         self.startPos.add(self.vel)
@@ -145,6 +145,7 @@ kbd = Keyboard()
 
 Map = []
 # Add map to list
+Map.append(tMap(mapZoom))
 # Room1 walls
 Map.append(Obstacle(-105, -32, -6, -32))
 Map.append(Obstacle(32, -32, 97, -32))
@@ -281,3 +282,4 @@ frame.set_draw_handler(draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 frame.start()
+
