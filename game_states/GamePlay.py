@@ -3,6 +3,7 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+import os
 
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
@@ -23,7 +24,7 @@ class GamePlay:
         canvas.draw_line([CANVASWIDTH/2,CANVASHEIGHT/2], self.mousePos, 1, 'Red')
 
     def drawMap(self, canvas):
-        map = simplegui._load_local_image("gameMap.png")
+        map = simplegui._load_local_image(os.path.join(os.path.dirname(__file__), "../gameMap.jpg"))
         canvas.draw_image(map, (map.get_width()/2,map.get_height()/2), (map.get_width(),map.get_height()), (self.mapPos[0],self.mapPos[1]), (CANVASWIDTH*self.zoom,CANVASHEIGHT*self.zoom))
 
     def draw(self, canvas):

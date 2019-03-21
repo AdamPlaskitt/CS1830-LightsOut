@@ -34,7 +34,7 @@ class SpriteSheet:
                           (100, 100))
 
     # load the next frame
-    def next_frame(self, offset):
+    def next_frame(self, offset=0):
         if not (self.frameIndex[1] == self.rows - 1 and self.frameIndex[0] == offset - 1):
             self.end = False
             if self.frameIndex[0] < (self.columns - 1):
@@ -53,7 +53,7 @@ class SpriteSheet:
             self.end = True
 
     # load the previous frame
-    def previous_frame(self, offset):
+    def previous_frame(self, offset=0):
         if not (self.frameIndex[1] == self.rows - 1 and self.frameIndex[0] > offset):
             self.end = False
             if self.frameIndex[0] > 0:
