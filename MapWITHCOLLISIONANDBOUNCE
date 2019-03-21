@@ -72,13 +72,13 @@ class Keyboard:
 
 
 class Interaction:
-    def __init__(self, obstacle, keyboard):
+    def __init__(self, obstacle, keyboard, tMap):
         self.obstacle = obstacle
         self.keyboard = keyboard
         self.tMap = tMap
 
     def update(self):
-        if(collide_check(obstacle, tMap)==False):
+        
             if self.keyboard.left:
                 self.obstacle.vel.add(Vector(0.1, 0))
                 # self.tMap.vel.add(Vector(0.1, 0))
@@ -90,19 +90,6 @@ class Interaction:
                 # self.tMap.vel.add(Vector(0, -0.1))
             if self.keyboard.up:
                 self.obstacle.vel.add(Vector(0, 0.1))
-                # self.tMap.vel.add(Vector(0, 0.1))
-        else:
-            if self.keyboard.left:
-                self.obstacle.vel.add(Vector(0, 0))
-                # self.tMap.vel.add(Vector(0.1, 0))
-            if self.keyboard.right:
-                self.obstacle.vel.add(Vector(0, 0))
-                # self.tMap.vel.add(Vector(-0.1, 0))
-            if self.keyboard.down:
-                self.obstacle.vel.add(Vector(0, 0))
-                # self.tMap.vel.add(Vector(0, -0.1))
-            if self.keyboard.up:
-                self.obstacle.vel.add(Vector(0, 0))
                 # self.tMap.vel.add(Vector(0, 0.1))
 
 class MapInteraction:
@@ -232,16 +219,42 @@ tmap = tMap(mapZoom)
 for map in Map:
     Interactions.append(MapInteraction(kbd, map))
 for obstacle in Map:
-    Interactions.append(Interaction(obstacle, kbd))
+    Interactions.append(Interaction(obstacle, kbd, map))
 
 #####################################################################################
-def collide_check(wall, tmap):
+def collide_check(wall, tMap, keyboard):
     
-    if (((int(wall.startPos.x) == int(wall.endPos.x) == 307) and (300 < int(wall.startPos.x) < 315) and (int(wall.endPos.y) < 307 < int(wall.startPos.y) or  int(wall.startPos.y) < 307 < int(wall.endPos.y)))):
-        print("True")
+    if (((int(wall.startPos.x) == int(wall.endPos.x)) and (300 < int(wall.startPos.x) < 315) and (int(wall.endPos.y) < 307 < int(wall.startPos.y) or  int(wall.startPos.y) < 307 < int(wall.endPos.y)))):
+        for wall in Map:
+            if keyboard.left:
+                wall.vel.add(Vector(-1, 0))
+                tMap.vel.add(Vector(-1, 0))
+            if keyboard.right:
+                wall.vel.add(Vector(1, 0))
+                tMap.vel.add(Vector(1, 0))
+            if keyboard.down:
+                wall.vel.add(Vector(0, 1))
+                tMap.vel.add(Vector(0, 1))
+            if keyboard.up:
+                wall.vel.add(Vector(0, -1))
+                tMap.vel.add(Vector(0, -1))
+            print("Collision handled")
         return True
-    elif (((int(wall.startPos.y) == int(wall.endPos.y) == 307) and (300 < int(wall.startPos.y) < 315) and (int(wall.endPos.x) < 307 < int(wall.startPos.x) or  int(wall.startPos.x) < 307 < int(wall.endPos.x)))):
-        print("True")
+    elif (((int(wall.startPos.y) == int(wall.endPos.y)) and (300 < int(wall.startPos.y) < 315) and (int(wall.endPos.x) < 307 < int(wall.startPos.x) or  int(wall.startPos.x) < 307 < int(wall.endPos.x)))):
+        for wall in Map:
+            if keyboard.left:
+                wall.vel.add(Vector(-1, 0))
+                tMap.vel.add(Vector(-1, 0))
+            if keyboard.right:
+                wall.vel.add(Vector(1, 0))
+                tMap.vel.add(Vector(1, 0))
+            if keyboard.down:
+                wall.vel.add(Vector(0, 1))
+                tMap.vel.add(Vector(0, 1))
+            if keyboard.up:
+                wall.vel.add(Vector(0, -1))
+                tMap.vel.add(Vector(0, -1))
+            print("Collision handled")
         return True
     #print("False")
     return False
@@ -256,7 +269,7 @@ def draw(canvas):
     for obstacle in Map:
         obstacle.update()
         obstacle.draw(canvas)
-        collide_check(obstacle, tmap)
+        collide_check(obstacle, tmap, kbd)
         #print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
     player.update()
     player.draw(canvas)
@@ -268,4 +281,3 @@ frame.set_draw_handler(draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 frame.start()
-
