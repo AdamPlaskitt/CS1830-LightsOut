@@ -13,7 +13,7 @@ class Player:
     def __init__(self):
         self.pos = Vector(CANVASWIDTH / 2, CANVASHEIGHT / 2)
         self.vel = Vector()
-        self.radius = 10
+        self.radius = 5
         self.colour = 'Green'
 
     def draw(self, canvas):
@@ -35,7 +35,7 @@ class Obstacle:
         self.colour = 'Blue'
 
     def draw(self, canvas):
-        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 7, self.colour)
+        canvas.draw_line(self.startPos.getP(), self.endPos.getP(), 5, self.colour)
 
     def update(self):
         self.startPos.add(self.vel)
@@ -78,19 +78,32 @@ class Interaction:
         self.tMap = tMap
 
     def update(self):
-        if self.keyboard.left:
-            self.obstacle.vel.add(Vector(0.1, 0))
-            # self.tMap.vel.add(Vector(0.1, 0))
-        if self.keyboard.right:
-            self.obstacle.vel.add(Vector(-0.1, 0))
-            # self.tMap.vel.add(Vector(-0.1, 0))
-        if self.keyboard.down:
-            self.obstacle.vel.add(Vector(0, -0.1))
-            # self.tMap.vel.add(Vector(0, -0.1))
-        if self.keyboard.up:
-            self.obstacle.vel.add(Vector(0, 0.1))
-            # self.tMap.vel.add(Vector(0, 0.1))
-
+        if(collide_check(obstacle, tMap)==False):
+            if self.keyboard.left:
+                self.obstacle.vel.add(Vector(0.1, 0))
+                # self.tMap.vel.add(Vector(0.1, 0))
+            if self.keyboard.right:
+                self.obstacle.vel.add(Vector(-0.1, 0))
+                # self.tMap.vel.add(Vector(-0.1, 0))
+            if self.keyboard.down:
+                self.obstacle.vel.add(Vector(0, -0.1))
+                # self.tMap.vel.add(Vector(0, -0.1))
+            if self.keyboard.up:
+                self.obstacle.vel.add(Vector(0, 0.1))
+                # self.tMap.vel.add(Vector(0, 0.1))
+        else:
+            if self.keyboard.left:
+                self.obstacle.vel.add(Vector(0, 0))
+                # self.tMap.vel.add(Vector(0.1, 0))
+            if self.keyboard.right:
+                self.obstacle.vel.add(Vector(0, 0))
+                # self.tMap.vel.add(Vector(-0.1, 0))
+            if self.keyboard.down:
+                self.obstacle.vel.add(Vector(0, 0))
+                # self.tMap.vel.add(Vector(0, -0.1))
+            if self.keyboard.up:
+                self.obstacle.vel.add(Vector(0, 0))
+                # self.tMap.vel.add(Vector(0, 0.1))
 
 class MapInteraction:
     def __init__(self, keyboard, tMap):
@@ -145,7 +158,6 @@ kbd = Keyboard()
 
 Map = []
 # Add map to list
-Map.append(tMap(mapZoom))
 # Room1 walls
 Map.append(Obstacle(-105, -32, -6, -32))
 Map.append(Obstacle(32, -32, 97, -32))
@@ -223,14 +235,16 @@ for obstacle in Map:
     Interactions.append(Interaction(obstacle, kbd))
 
 #####################################################################################
-def collide_check(walls, tmap):
-    #this is what needs to be changed, not sure what values we need to use
-    if (int(walls.startPos.getP()[0]*2) < screenPos.x+2 < int(walls.endPos.getP()[0]*2) and int(walls.startPos.getP()[1]*2) < screenPos.y+2 < int(walls.endPos.getP()[1]*2)) or (int(walls.startPos.getP()[0]*2) < screenPos.x-2 < int(walls.endPos.getP()[0]*2) and int(walls.startPos.getP()[1]*2) < screenPos.y-2 < int(walls.endPos.getP()[1]*2)):
-        print ("True")
+def collide_check(wall, tmap):
+    
+    if (((int(wall.startPos.x) == int(wall.endPos.x) == 307) and (300 < int(wall.startPos.x) < 315) and (int(wall.endPos.y) < 307 < int(wall.startPos.y) or  int(wall.startPos.y) < 307 < int(wall.endPos.y)))):
+        print("True")
         return True
-    else:
-        #print(int(walls.startPos.getP()[0]*2))
-        return False
+    elif (((int(wall.startPos.y) == int(wall.endPos.y) == 307) and (300 < int(wall.startPos.y) < 315) and (int(wall.endPos.x) < 307 < int(wall.startPos.x) or  int(wall.startPos.x) < 307 < int(wall.endPos.x)))):
+        print("True")
+        return True
+    #print("False")
+    return False
 
 ###################################################################################
 def draw(canvas):
@@ -243,7 +257,7 @@ def draw(canvas):
         obstacle.update()
         obstacle.draw(canvas)
         collide_check(obstacle, tmap)
-        
+        #print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
     player.update()
     player.draw(canvas)
 
