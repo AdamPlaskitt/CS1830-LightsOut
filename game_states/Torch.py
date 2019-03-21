@@ -9,8 +9,8 @@ except ImportError:
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
 
-class Torch:
 
+class Torch:
     def __init__(self):
         self.zoom = 2
         self.mapPos = [CANVASWIDTH/2,CANVASHEIGHT/2]
@@ -33,7 +33,7 @@ class Torch:
         self.lightRadius = 75
         self.damage = 3
 
-    def useSmallTorch():
+    def useSmallTorch(self):
         self.isSmaTorch = True
         self.isMedTorch = False
         self.isBigTorch = False
@@ -44,7 +44,7 @@ class Torch:
         self.lightRadius = 100
         self.damage = 1.5
 
-    def useMediumTorch():
+    def useMediumTorch(self):
         self.isSmaTorch = False
         self.isMedTorch = True
         self.isBigTorch = False
@@ -55,7 +55,7 @@ class Torch:
         self.lightRadius = 200
         self.damage = 0.1
 
-    def useBigTorch():
+    def useBigTorch(self):
         self.isSmaTorch = False
         self.isMedTorch = False
         self.isBigTorch = True
