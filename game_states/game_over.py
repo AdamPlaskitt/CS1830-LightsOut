@@ -3,6 +3,7 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+
 from lib.state_machine.states import States
 from lib.game_functions.scoreboard.scores import Scores
 
