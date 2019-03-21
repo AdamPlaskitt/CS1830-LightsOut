@@ -31,10 +31,11 @@ def main():
         # passing settings into the states
         'menu': Menu(settings),
         'leaderboard': Leaderboard(settings),
-        'gameOver':  GameOver(settings)
+        'gameOver':  GameOver(settings),
+        'gamePlay': None
     }
 
-    app.setup_states(state_dict, 'gameOver')
+    app.setup_states(state_dict, 'menu')
 
     screen = simplegui.create_frame("LightsOut", settings.get('width'), settings.get('height'))
     screen.set_draw_handler(app.main_game_loop)
