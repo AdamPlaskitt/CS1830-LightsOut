@@ -9,6 +9,7 @@ from lib.state_machine.control import Control
 from game_states.menu import Menu
 from game_states.leaderboard import Leaderboard
 from game_states.game_over import GameOver
+from game_states.GamePlay import GamePlay
 
 
 # main function to be run
@@ -32,7 +33,7 @@ def main():
         'menu': Menu(settings),
         'leaderboard': Leaderboard(settings),
         'gameOver':  GameOver(settings),
-        'gamePlay': None
+        'gamePlay': GamePlay(settings)
     }
 
     app.setup_states(state_dict, 'menu')

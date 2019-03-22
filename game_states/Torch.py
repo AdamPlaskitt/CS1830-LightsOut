@@ -5,6 +5,7 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+import os
 
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
@@ -61,6 +62,7 @@ class Torch:
         self.isBigTorch = True
 
     def drawMap(self, canvas):
+        print(os.path.join(os.path.dirname(__file__), "/../textures/backgrounds/maps/gameMap.jpg"))
         map = simplegui._load_local_image("textures/backgrounds/maps/gameMap.jpg")
         canvas.draw_image(map, (map.get_width()/2,map.get_height()/2), (map.get_width(),map.get_height()), (self.mapPos[0],self.mapPos[1]), (CANVASWIDTH * self.zoom,CANVASHEIGHT * self.zoom))
 
@@ -81,5 +83,6 @@ class Torch:
 if __name__ == '__main__':
     frame = simplegui.create_frame("LightsOut", CANVASWIDTH, CANVASHEIGHT)
     torch = Torch()
+    frame.set_canvas_background("Blue")
     frame.set_draw_handler(torch.draw)
     frame.start()

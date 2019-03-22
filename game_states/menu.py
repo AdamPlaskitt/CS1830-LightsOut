@@ -53,7 +53,7 @@ class Menu(States):
         self.pos = None
         self.torch = Torch()
         self.inven = Inventory(3, 100, 1000, 750)
-        self.player = Player(1000/2, 750/2, 3, self.inven)
+#        self.player = Player(1000/2, 750/2, 3, self.inven)
 
     def drag(self, pos):
         self.pos = pos
@@ -63,10 +63,8 @@ class Menu(States):
         self.pos = pos
 
         if self.isMenu and self.startButton.point1[1] < self.pos[1] < self.startButton.point4[1]:
-            self.isStart = True
-            self.isHelp = False
-            self.isLeader = False
-            self.isMenu = False
+            self.next = 'gamePlay'
+            self.done = True
 
         if self.isMenu and self.helpButton.point1[1] < self.pos[1] < self.helpButton.point4[1]:
             self.isStart = False
