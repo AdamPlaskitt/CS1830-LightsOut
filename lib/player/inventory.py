@@ -9,9 +9,9 @@ import math
 
 class Inventory:
 
-    def __init__(self, slots, size, CANVASWIDTH, CANVASHEIGHT):
-        self.screen_width = CANVASWIDTH
-        self.screen_height = CANVASHEIGHT
+    def __init__(self, slots, size, canvas_width, canvas_height):
+        self.screen_width = canvas_width
+        self.screen_height = canvas_height
         self.slots = slots
         self.size = size
         self.bars = math.floor(self.slots / 2)
