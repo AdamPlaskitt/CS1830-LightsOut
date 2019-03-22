@@ -13,13 +13,16 @@ class Inventory:
 
     def __init__(self, slots, size, canvas_width, canvas_height):
         self.torch = Torch()
-        z = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/torch.png")
-        self.torchimg = simplegui._load_local_image(z)
+        x = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/torch.png")
+        self.torch_img = simplegui._load_local_image(x)
+        y = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/torch_lock.png")
+        self.torch_lock_img = simplegui._load_local_image(y)
         self.screen_width = canvas_width
         self.screen_height = canvas_height
         self.slots = slots
         self.size = size
         self.bars = math.floor(self.slots / 2)
+        self.score = 0
         self.slot_1_selected = True
         self.slot_2_selected = False
         self.slot_3_selected = False
@@ -34,12 +37,20 @@ class Inventory:
     def draw(self, canvas):
         # TODO
         #self.torch.draw(canvas)
-        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
-                          (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
-        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
+        if self.score >= 100:
+            canvas.draw_image(self.torch_img, (256, 256), (512, 512),
+                            (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
+        else:
+            canvas.draw_image(self.torch_lock_img, (256, 256), (512, 512),
+                              (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
+        canvas.draw_image(self.torch_img, (256, 256), (512, 512),
                           (self.screen_width / 2, self.screen_height - 10 - self.size / 2), (75, 75))
-        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
-                          (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100))
+        if self.score >= 500:
+            canvas.draw_image(self.torch_img, (256, 256), (512, 512),
+                            (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100))
+        else:
+            canvas.draw_image(self.torch_lock_img, (256, 256), (512, 512),
+                            (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100))
         canvas.draw_line(((self.screen_width / 2) - (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          ((self.screen_width / 2) + (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          5, 'White')
@@ -63,13 +74,13 @@ class Inventory:
 
     def update(self):
         self.torch.update()
-        if self.slot_1_selected:
+        if self.slot_1_selected and self.score >= 100:
             self.highlighted = 0
             self.torch.useSmallTorch()
         if self.slot_2_selected:
             self.highlighted = 1
             self.torch.useMediumTorch()
-        if self.slot_3_selected:
+        if self.slot_3_selected and self.score >= 500:
             self.highlighted = 2
             self.torch.useBigTorch()
         if self.slot_4_selected:

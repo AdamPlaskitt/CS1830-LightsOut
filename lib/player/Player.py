@@ -72,6 +72,7 @@ class Player:
 
     def update_score(self):
         self.score += 1
+        self.inven.score += 1
 
     def update_rot(self):
         self.mouse_pos = pygame.mouse.get_pos()
