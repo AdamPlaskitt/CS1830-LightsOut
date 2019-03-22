@@ -83,17 +83,17 @@ class Inventory:
         if self.slot_3_selected and self.score >= 500:
             self.highlighted = 2
             self.torch.useBigTorch()
-        if self.slot_4_selected:
+        if self.slot_4_selected and self.score >= 500:
             self.highlighted = 3
-        if self.slot_5_selected:
+        if self.slot_5_selected and self.score >= 500:
             self.highlighted = 4
-        if self.slot_6_selected:
+        if self.slot_6_selected and self.score >= 500:
             self.highlighted = 5
-        if self.slot_7_selected:
+        if self.slot_7_selected and self.score >= 500:
             self.highlighted = 6
-        if self.slot_8_selected:
+        if self.slot_8_selected and self.score >= 500:
             self.highlighted = 7
-        if self.slot_9_selected:
+        if self.slot_9_selected and self.score >= 500:
             self.highlighted = 8
         if self.highlighted >= self.slots:
             self.highlighted = self.slots - 1
