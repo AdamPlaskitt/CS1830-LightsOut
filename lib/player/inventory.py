@@ -32,7 +32,8 @@ class Inventory:
         self.highlighted = 1
 
     def draw(self, canvas):
-        self.torch.draw(canvas)
+        # TODO
+        #self.torch.draw(canvas)
         canvas.draw_image(self.torchimg, (256, 256), (512, 512),
                           (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
         canvas.draw_image(self.torchimg, (256, 256), (512, 512),

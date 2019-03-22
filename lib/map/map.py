@@ -34,6 +34,7 @@ class Obstacle:
         self.endPos.add(self.vel)
         self.vel.multiply(0.85)
 
+
 class Interaction:
     def __init__(self, obstacle, keyboard, tMap):
         self.obstacle = obstacle
@@ -92,13 +93,13 @@ class tMap:
         self.vel.multiply(0.85)
         screenPos = self.moveP
 
-    def collide_check(walls):
+    #def collide_check(self, walls):
 
-        if walls.startPos.x <= player.pos.x <= walls.endPos.x and walls.startPos.y <= player.pos.y <= walls.endPos.y:
-            print("collide with wall (" + + ", " + y1 + ")" + "(" + x2 + ", " + y2 + ")")
-            return True
-        else:
-            return False
+     #   if walls.startPos.x <= player.pos.x <= walls.endPos.x and walls.startPos.y <= player.pos.y <= walls.endPos.y:
+      #      print("collide with wall (" + + ", " + y1 + ")" + "(" + x2 + ", " + y2 + ")")
+       #     return True
+       # else:
+        #    return False
 
 
 class Map:
@@ -106,6 +107,7 @@ class Map:
         self.kbd = Keyboard()
         self.player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, self.kbd)
         self.Map = []
+        #self.Map.append(tMap(mapZoom))
         # Room1 walls
         self.Map.append(Obstacle(-105, -32, -6, -32))
         self.Map.append(Obstacle(32, -32, 97, -32))
@@ -184,7 +186,6 @@ class Map:
         for obstacle in self.Map:
             self.Interactions.append(Interaction(obstacle, self.kbd, map))
 
-
     #####################################################################################
     def collide_check(self, wall, tMap, keyboard):
         if (((int(wall.startPos.x) == int(wall.endPos.x)) and ((CANVASWIDTH/2) - 7 < int(wall.startPos.x) < (CANVASWIDTH/2) + 7) and (
@@ -230,14 +231,16 @@ class Map:
             inter.update()
         for map in self.Map:
             map.update()
-            map.draw(canvas)
+            # map.draw(canvas)
         for obstacle in self.Map:
             obstacle.update()
             obstacle.draw(canvas)
             self.collide_check(obstacle, self.tmap, self.kbd)
             # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
+
         self.player.update()
         self.player.draw(canvas)
+
 
 if __name__ == '__main__':
     # Create a frame and assign callbacks to event handlers

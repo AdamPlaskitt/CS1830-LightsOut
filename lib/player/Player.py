@@ -21,7 +21,7 @@ class Player:
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
-        self.max_health = 1
+        self.max_health = 100
         self.health = self.max_health
         self.lives = lives
         self.dead = False
@@ -60,7 +60,6 @@ class Player:
         canvas.draw_text('Score: ' + str(self.score), (self.width * 2, 50), 40, 'White')
 
     def update(self):
-        self.take_damage(0.1)
         self.player_move.update()
         self.change_slot.update()
         self.inven.update()
