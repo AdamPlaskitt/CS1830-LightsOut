@@ -6,11 +6,12 @@ import os
 from lib.enemies.enemy import Enemy
 from lib.util.spritesheet import SpriteSheet
 from lib.util.vector import Vector
+import random
 
 
 class Shuffler(Enemy):
     def __init__(self, position, settings_args):
-        Enemy.__init__(self, position, True, False, 0.5, 10, 30, 0)
+        Enemy.__init__(self, position, True, False, 0.1, 10, 30, 0)
         self.img = simplegui._load_local_image(os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets"
                                                                                        "/enemies"
                                                                                        "/zombie_n_skeleton_preview_0"

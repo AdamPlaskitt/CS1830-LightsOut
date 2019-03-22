@@ -204,16 +204,18 @@ class Map:
         self.Map.append(tMap(mapZoom))
         self.Interactions = []
         self.tmap = tMap(mapZoom)
+
+
         self.clock = 0
         self.spawn_points = list()
         for i in range(5):
-            self.spawn_points.append(self.Map[56 + i])
+            self.spawn_points.append(self.Map[56 + i].moveP.copy())
 
         self.settings = settings
 
         self.enemies = list()
         for i in range(self.max_enemy):
-            self.enemies.append(Shuffler(random.choice(self.spawn_points).moveP, self.settings))
+            self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
 
         for map in self.Map:
             self.Interactions.append(MapInteraction(self.kbd, map))
@@ -274,7 +276,7 @@ class Map:
         for enemy in self.enemies:
             enemy.draw(canvas)
         for i in range(5):
-            self.spawn_points.append(self.Map[56 + i])
+            self.spawn_points.append(self.Map[56 + i].moveP.copy())
         self.player.update()
         self.player.draw(canvas)
 
@@ -282,17 +284,21 @@ class Map:
         self.remove = []
         self.clock += 1
         for enemy in self.enemies:
+
             if self.clock % 2 == 0:
                 enemy.update()
-            if enemy.target.copy().subtract(enemy.pos).length() < 5:
+            if enemy.target.copy().subtract(enemy.pos).length() < 3:
                 self.player.take_damage(enemy.attack_str)
             if self.clock % 5 == 0:
                 if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() <= self.player.inven.torch.lightRadius:
                     enemy.take_damage(self.player.inven.torch.damage)
             if not enemy.is_alive():
                 self.remove.append(enemy)
+
         for item in self.remove:
             self.enemies.remove(item)
+        if self.clock % 30 == 0 and len(self.enemies) < 10:
+            self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
 
 
 if __name__ == '__main__':

@@ -16,14 +16,14 @@ class GamePlay(States):
         States.__init__(self)
         self.mapPos = [CANVASWIDTH/2, CANVASHEIGHT/2]
         self.mousePos = [0, 0]
-        self.max_enemy = 10
+        self.max_enemy = 0
         self.settings = settings
         self.game = Map(self.max_enemy, settings)
 
     def set_up(self):
         self.mapPos = [CANVASWIDTH / 2, CANVASHEIGHT / 2]
         self.mousePos = [0, 0]
-        self.max_enemy = 10
+        self.max_enemy = 0
         self.game = Map(self.max_enemy, self.settings)
 
     def draw(self, canvas):
