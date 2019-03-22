@@ -1,2 +1,4 @@
 .idea
 test.py
+lib/player/__pycache__/
+lib/player/interactions/__pycache__/
