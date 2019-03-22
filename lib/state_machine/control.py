@@ -13,6 +13,7 @@ class Control:
         self.state_dict = None
         self.state_name = None
         self.state = None
+        self.score = None
 
     # set up the start state for when Control is first run
     def setup_states(self, state_dict, start_state):
@@ -23,12 +24,15 @@ class Control:
 
     # change state
     def flip_state(self):
+        self.score = self.state.score
         self.state.clean_up()
         self.state.done = False
         previous, self.state_name = self.state_name, self.state.next
         self.state = self.state_dict[self.state_name]
+        self.state.score = self.score
         self.state.set_up()
         self.state.previous = previous
+
 
     # check if a state is done or quit
     def update(self, canvas):

@@ -28,6 +28,7 @@ class GamePlay(States):
 
     def update(self, canvas):
         if self.game.player.game_over:
+            self.score = self.game.player.final_score
             self.next = 'gameOver'
             self.done = True
 

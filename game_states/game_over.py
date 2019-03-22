@@ -56,6 +56,13 @@ class GameOver(States):
 
     # Override
     def set_up(self):
+        self.msg = {'title': "Game Over!",
+                    'score': "Score: {value} ",
+                    'enter': "Enter your name for the leaderboard:",
+                    'name': "",
+                    'sub': "Submit",
+                    'main': "Main Menu"
+                    }
         self.entered = False
         self.key_pressed = False
         self.key = None
@@ -72,7 +79,7 @@ class GameOver(States):
         bp8 = (self.settings.get('width') - 200, 627 + 80)
 
         self.button_main = [bp5, bp6, bp7, bp8]
-        value = '---'  # get value
+        value = self.score  # get value
         self.msg.update({'score': self.msg.get('score').format(value=value)})
 
     # Override

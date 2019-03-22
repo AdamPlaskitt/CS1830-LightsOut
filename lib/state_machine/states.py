@@ -14,6 +14,7 @@ class States(object):
         self.pos = None
         self.key_pressed = False
         self.key = None
+        self.score = None
 
     # Overridable methods
     def clean_up(self):
@@ -58,6 +59,5 @@ class States(object):
     def key_listener(self, key):
         for label, value in simplegui.KEY_MAP.items():
             if value == key:
-                print(key)
                 self.key_pressed = True
                 self.key = label.upper()
