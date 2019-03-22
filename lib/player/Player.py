@@ -8,6 +8,8 @@ from lib.player.interactions.keyboard import Keyboard
 from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
 from lib.player.inventory import Inventory
+from game_states.Torch import Torch
+
 
 
 class Player:
@@ -36,13 +38,21 @@ class Player:
         self.clock = 0
         self.rot = 0
         self.speed = 5  # amount of frames per sprite update
+        self.torch = Torch()
+        self.kbd = Keyboard()
+        self.player_move = PlayerMove(self, self.kbd)
+        self.change_slot = ChangeSlot(self.inven, self.kbd)
 
     def draw(self, canvas):
+        self.update()
+        self.torch.draw(canvas)
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
         self.inven.draw(canvas)
 
     def update(self):
+        self.player_move.update()
+        self.change_slot.update()
         self.inven.update()
         self.update_rot()
         self.clock += 1

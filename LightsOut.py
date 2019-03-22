@@ -31,7 +31,8 @@ def main():
         # passing settings into the states
         'menu': Menu(settings),
         'leaderboard': Leaderboard(settings),
-        'gameOver':  GameOver(settings)
+        'gameOver':  GameOver(settings),
+        'gamePlay': None
     }
 
     app.setup_states(state_dict, 'gameOver')

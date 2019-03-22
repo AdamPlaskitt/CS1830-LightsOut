@@ -25,7 +25,7 @@ class Torch:
         canvas.draw_polygon([[CANVASWIDTH,0],[self.mousePos[0] + self.lightRadius, 0],[self.mousePos[0] + self.lightRadius, CANVASHEIGHT],[CANVASWIDTH,CANVASHEIGHT]], 1, 'Black', 'Black')
         canvas.draw_polygon([[0,0], [CANVASWIDTH,0], [CANVASWIDTH, self.mousePos[1] - self.lightRadius],[0, self.mousePos[1] - self.lightRadius]], 1, 'Black', 'Black')
         canvas.draw_polygon([[0,CANVASHEIGHT], [CANVASWIDTH,CANVASHEIGHT], [CANVASWIDTH, self.mousePos[1] + self.lightRadius],[0, self.mousePos[1] + self.lightRadius]], 1, 'Black', 'Black')
-        canvas.draw_line([CANVASWIDTH/2,CANVASHEIGHT/2], self.mousePos, 1, 'Red')
+        #canvas.draw_line([CANVASWIDTH/2,CANVASHEIGHT/2], self.mousePos, 1, 'Red')
 
     def createSmaTorch(self):
         self.radius = 150
@@ -33,7 +33,7 @@ class Torch:
         self.lightRadius = 75
         self.damage = 3
 
-    def useSmallTorch():
+    def useSmallTorch(self):
         self.isSmaTorch = True
         self.isMedTorch = False
         self.isBigTorch = False
@@ -44,7 +44,7 @@ class Torch:
         self.lightRadius = 100
         self.damage = 1.5
 
-    def useMediumTorch():
+    def useMediumTorch(self):
         self.isSmaTorch = False
         self.isMedTorch = True
         self.isBigTorch = False
@@ -55,7 +55,7 @@ class Torch:
         self.lightRadius = 200
         self.damage = 0.1
 
-    def useBigTorch():
+    def useBigTorch(self):
         self.isSmaTorch = False
         self.isMedTorch = False
         self.isBigTorch = True
