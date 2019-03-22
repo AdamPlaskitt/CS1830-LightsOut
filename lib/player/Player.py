@@ -40,27 +40,38 @@ class Player:
         self.clock = 0
         self.rot = 0
         self.speed = 5  # amount of frames per sprite update
+        self.score = 0
 
     def draw(self, canvas):
+        # sprite
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
+        # inventory
         self.inven.draw(canvas)
-        canvas.draw_line((50, 2 * self.y - 150), (10 * self.health - 50, 2 * self.y - 150), 10, 'Red')
+        # health bar
+        canvas.draw_line((9 * self.health + 50, 2 * self.y - 150), (9 * self.max_health + 50, 2 * self.y - 150),
+                         10, 'White')
+        canvas.draw_line((50, 2 * self.y - 150), (9 * self.health + 50, 2 * self.y - 150), 10, 'Red')
+        # lives
         for i in range(0, self.lives):
             canvas.draw_image(self.hpimg, (112.5, 112.5), (225, 225), (60 * i + 50, 50), (50, 50))
+        # score
+        canvas.draw_text('Score: ' + str(self.score), (self.width * 2, 50), 40, 'White')
 
     def update(self):
+        self.take_damage(0.1)
         self.player_move.update()
         self.change_slot.update()
-        self.update_health()
         self.inven.update()
         self.update_rot()
         self.clock += 1
         if self.clock % self.speed == 0:
             self.update_sprite()
+        if self.clock % 60 == 0:
+            self.update_score()
 
-    def update_health(self):
-        pass
+    def update_score(self):
+        self.score += 1
 
     def update_rot(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -96,6 +107,7 @@ class Player:
         self.health -= damage
         if self.health <= 0:
             self.lives -= 1
+            self.health = self.max_health
         if self.lives == 0:
             self.game_over = True
 
