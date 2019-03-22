@@ -4,16 +4,19 @@ try:
 except ImportError:
     sys.argv.append('--no-controlpanel')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-from lib.player.interactions.keyboard import Keyboard
 from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
+from lib.player.interactions.keyboard import Keyboard
 from lib.player.inventory import Inventory
 
 
 class Player:
 
-    def __init__(self, x_pos, y_pos, lives, inventory):
-        self.inven = inventory
+    def __init__(self, x_pos, y_pos, lives):
+        self.inven = Inventory(3, 100, 2 * x_pos, 2 * y_pos)
+        self.kbd = Keyboard()
+        self.player_move = PlayerMove(self, self.kbd)
+        self.change_slot = ChangeSlot(self.inven, self.kbd)
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
@@ -43,9 +46,14 @@ class Player:
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
         self.inven.draw(canvas)
-
+        canvas.draw_line((50, 2 * self.y - 150), (10 * self.health - 50, 2 * self.y - 150), 10, 'Red')
+        for i in range(0, self.lives):
+            canvas.draw_image(self.hpimg, (112.5, 112.5), (225, 225), (60 * i + 50, 50), (50, 50))
 
     def update(self):
+        self.player_move.update()
+        self.change_slot.update()
+        self.update_health()
         self.inven.update()
         self.update_rot()
         self.clock += 1
@@ -96,21 +104,18 @@ class Player:
 if __name__ == '__main__':
     CANVASWIDTH = 1000
     CANVASHEIGHT = 750
-    inven = Inventory(3, 100, CANVASWIDTH, CANVASHEIGHT)
-    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, inven)
-    kbd = Keyboard()
-    player_move = PlayerMove(player, kbd)
-    change_slot = ChangeSlot(inven, kbd)
+
+    player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3)
+
 
     def draw(canvas):
-        player_move.update()
-        change_slot.update()
+
         player.update()
         player.draw(canvas)
 
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
     frame.set_canvas_background('Grey')
     frame.set_draw_handler(draw)
-    frame.set_keydown_handler(kbd.key_down)
-    frame.set_keyup_handler(kbd.key_up)
+    frame.set_keydown_handler(player.kbd.key_down)
+    frame.set_keyup_handler(player.kbd.key_up)
     frame.start()
