@@ -23,6 +23,7 @@ class Control:
 
     # change state
     def flip_state(self):
+        self.state.clean_up()
         self.state.done = False
         previous, self.state_name = self.state_name, self.state.next
         self.state = self.state_dict[self.state_name]
@@ -41,6 +42,9 @@ class Control:
     def key_board_loop(self, key):
         self.state.key_listener(key)
         self.state.key_reader()
+
+    def key_up(self, key):
+        self.state.key_up(key)
 
     # click handler
     def event_loop(self, pos):

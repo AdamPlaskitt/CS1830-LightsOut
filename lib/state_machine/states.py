@@ -32,6 +32,9 @@ class States(object):
     def key_reader(self):
         pass
 
+    def key_up(self, key):
+        pass
+
     def update(self, canvas):
         pass
 

@@ -17,13 +17,18 @@ class GamePlay(States):
         self.zoom = 2
         self.mapPos = [CANVASWIDTH/2,CANVASHEIGHT/2]
         self.mousePos = [0,0]
+        self.game = Map()
 
     def draw(self, canvas):
+        self.game.draw(canvas)
 
-        mousePosStart = pygame.mouse.get_pos()
-        self.mousePos[0] = mousePosStart[0]-252
-        self.mousePos[1] = mousePosStart[1]-27
-        self.drawMap(canvas)
+    def key_listener(self, key):
+        self.game.kbd.keyDown(key)
+
+    def key_up(self, key):
+        self.game.kbd.keyUp(key)
+
+
 
 
 if __name__ == '__main__':

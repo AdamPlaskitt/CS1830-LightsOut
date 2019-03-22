@@ -42,6 +42,7 @@ def main():
     screen.set_draw_handler(app.main_game_loop)
     screen.set_mouseclick_handler(app.event_loop)
     screen.set_keydown_handler(app.key_board_loop)
+    screen.set_keyup_handler(app.key_up)
 
     # start the game screen
     screen.start()

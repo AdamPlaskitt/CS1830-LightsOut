@@ -132,14 +132,10 @@ class tMap:
             return False
 
 
-kbd = Keyboard()
-
 class Map:
     def __init__(self):
+        self.kbd = Keyboard()
         self.Map = []
-        # Add map to list
-        self.Map.append(tMap(mapZoom))
-
         # Room1 walls
         self.Map.append(Obstacle(-105, -32, -6, -32))
         self.Map.append(Obstacle(32, -32, 97, -32))
@@ -210,13 +206,13 @@ class Map:
         self.Map.append(Obstacle(-230, -41, -230, -95))
         self.Map.append(Obstacle(-198, -95, -230, -95))
         # Add map to list
-        #self.Map.append(tMap(mapZoom))
+        self.Map.append(tMap(mapZoom))
         self.Interactions = []
         self.tmap = tMap(mapZoom)
         for map in self.Map:
-            self.Interactions.append(MapInteraction(kbd, map))
+            self.Interactions.append(MapInteraction(self.kbd, map))
         for obstacle in self.Map:
-            self.Interactions.append(Interaction(obstacle, kbd, map))
+            self.Interactions.append(Interaction(obstacle, self.kbd, map))
 
 
     #####################################################################################
@@ -268,7 +264,7 @@ class Map:
         for obstacle in self.Map:
             obstacle.update()
             obstacle.draw(canvas)
-            self.collide_check(obstacle, self.tmap, kbd)
+            self.collide_check(obstacle, self.tmap, self.kbd)
             # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
         player.update()
         player.draw(canvas)
@@ -278,7 +274,7 @@ if __name__ == '__main__':
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
     test = Map()
     frame.set_draw_handler(test.draw)
-    frame.set_keydown_handler(kbd.keyDown)
-    frame.set_keyup_handler(kbd.keyUp)
+    frame.set_keydown_handler(test.kbd.keyDown)
+    frame.set_keyup_handler(test.kbd.keyUp)
     frame.start()
 
