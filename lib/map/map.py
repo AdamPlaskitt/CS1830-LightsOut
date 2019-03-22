@@ -93,9 +93,24 @@ class tMap:
         self.vel.multiply(0.85)
         screenPos = self.moveP
 
+class spawn_point:
+    def __init__(self, pos):
+        self.vel = Vector()
+        self.moveP = Vector(pos[0], pos[1])
+        self.startPos = Vector(0, 0)
+        self.endPos = Vector(0, 0)
+
+    def draw(self, canvas):
+        canvas.draw_circle(self.moveP.get_pos(), 10, 5, 'Red', 'Red')
+
+    def update(self):
+        self.moveP.add(self.vel)
+        self.vel.multiply(0.85)
+        screenPos = self.moveP
+
     #def collide_check(self, walls):
 
-     #   if walls.startPos.x <= player.pos.x <= walls.endPos.x and walls.startPos.y <= player.pos.y <= walls.endPos.y:
+     #   if walls.startPos.x <= player.moveP.x <= walls.endPos.x and walls.startPos.y <= player.moveP.y <= walls.endPos.y:
       #      print("collide with wall (" + + ", " + y1 + ")" + "(" + x2 + ", " + y2 + ")")
        #     return True
        # else:
@@ -108,6 +123,7 @@ class Map:
         self.player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, self.kbd)
         self.Map = []
         #self.Map.append(tMap(mapZoom))
+
         # Room1 walls
         self.Map.append(Obstacle(-105, -32, -6, -32))
         self.Map.append(Obstacle(32, -32, 97, -32))
@@ -181,6 +197,8 @@ class Map:
         self.Map.append(tMap(mapZoom))
         self.Interactions = []
         self.tmap = tMap(mapZoom)
+        # Add spawn points
+        self.Map.append(spawn_point([100, 100]))
         for map in self.Map:
             self.Interactions.append(MapInteraction(self.kbd, map))
         for obstacle in self.Map:
@@ -236,7 +254,7 @@ class Map:
             obstacle.update()
             obstacle.draw(canvas)
             self.collide_check(obstacle, self.tmap, self.kbd)
-            # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
+            # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.moveP.x))
 
         self.player.update()
         self.player.draw(canvas)

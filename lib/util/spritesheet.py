@@ -10,8 +10,8 @@ class SpriteSheet:
         :param img: img
         :param columns: amount of columns
         :param rows: amount of rows
-        :param x: pos
-        :param y: pos
+        :param x: moveP
+        :param y: moveP
         """
         self.end = False
         self.img = img
