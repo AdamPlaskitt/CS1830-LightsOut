@@ -25,7 +25,7 @@ class Torch:
         canvas.draw_polygon([[CANVASWIDTH,0],[self.mousePos[0] + self.lightRadius, 0],[self.mousePos[0] + self.lightRadius, CANVASHEIGHT],[CANVASWIDTH,CANVASHEIGHT]], 1, 'Black', 'Black')
         canvas.draw_polygon([[0,0], [CANVASWIDTH,0], [CANVASWIDTH, self.mousePos[1] - self.lightRadius],[0, self.mousePos[1] - self.lightRadius]], 1, 'Black', 'Black')
         canvas.draw_polygon([[0,CANVASHEIGHT], [CANVASWIDTH,CANVASHEIGHT], [CANVASWIDTH, self.mousePos[1] + self.lightRadius],[0, self.mousePos[1] + self.lightRadius]], 1, 'Black', 'Black')
-        canvas.draw_line([CANVASWIDTH/2,CANVASHEIGHT/2], self.mousePos, 1, 'Red')
+        #canvas.draw_line([CANVASWIDTH/2,CANVASHEIGHT/2], self.mousePos, 1, 'Red')
 
     def createSmaTorch(self):
         self.radius = 150
