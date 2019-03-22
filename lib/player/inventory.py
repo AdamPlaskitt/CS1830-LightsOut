@@ -4,14 +4,16 @@ try:
 except ImportError:
     sys.argv.append('--no-controlpanel')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import math
+import math, os
 
 
 class Inventory:
 
-    def __init__(self, slots, size, CANVASWIDTH, CANVASHEIGHT):
-        self.screen_width = CANVASWIDTH
-        self.screen_height = CANVASHEIGHT
+    def __init__(self, slots, size, canvas_width, canvas_height):
+        z = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/torch.png")
+        self.torchimg = simplegui._load_local_image(z)
+        self.screen_width = canvas_width
+        self.screen_height = canvas_height
         self.slots = slots
         self.size = size
         self.bars = math.floor(self.slots / 2)
@@ -27,6 +29,12 @@ class Inventory:
         self.highlighted = 0
 
     def draw(self, canvas):
+        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
+                          (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50), 1)
+        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
+                          (self.screen_width / 2, self.screen_height - 10 - self.size / 2), (75, 75))
+        canvas.draw_image(self.torchimg, (256, 256), (512, 512),
+                          (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100), -1)
         canvas.draw_line(((self.screen_width / 2) - (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          ((self.screen_width / 2) + (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          5, 'White')
