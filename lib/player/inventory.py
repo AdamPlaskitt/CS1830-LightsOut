@@ -35,7 +35,7 @@ class Inventory:
         self.highlighted = 1
 
     def draw(self, canvas):
-        #self.torch.draw(canvas)
+        self.torch.draw(canvas)
         if self.score >= 100:
             canvas.draw_image(self.torch_img, (256, 256), (512, 512),
                             (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
