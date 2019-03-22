@@ -290,10 +290,9 @@ class Map:
                 if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() <= self.player.inven.torch.lightRadius:
                     enemy.take_damage(self.player.inven.torch.damage)
             if not enemy.is_alive():
-                self.remove.append(self.enemies.index(enemy))
-                print('dead')
+                self.remove.append(enemy)
         for item in self.remove:
-            self.enemies.pop(item)
+            self.enemies.remove(item)
 
 
 if __name__ == '__main__':
