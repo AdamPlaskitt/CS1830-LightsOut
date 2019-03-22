@@ -9,7 +9,7 @@ from lib.player.interactions.keyboard import Keyboard
 import math, random
 from lib.util.vector import Vector
 from lib.player.Player import Player
-
+from lib.enemies.shuffler import Shuffler
 
 CANVASHEIGHT = 750
 CANVASWIDTH = 1000
@@ -119,7 +119,7 @@ class spawn_point:
 
 
 class Map:
-    def __init__(self):
+    def __init__(self, max_enemy):
         self.kbd = Keyboard()
         self.player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, self.kbd)
         self.Map = []

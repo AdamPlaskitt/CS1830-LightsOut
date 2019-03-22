@@ -14,14 +14,16 @@ CANVASHEIGHT = 750
 class GamePlay(States):
     def __init__(self, settings):
         States.__init__(self)
-        self.mapPos = [CANVASWIDTH/2,CANVASHEIGHT/2]
-        self.mousePos = [0,0]
-        self.game = Map()
+        self.mapPos = [CANVASWIDTH/2, CANVASHEIGHT/2]
+        self.mousePos = [0, 0]
+        self.max_enemy = 10
+        self.game = Map(self.max_enemy)
 
     def set_up(self):
         self.mapPos = [CANVASWIDTH / 2, CANVASHEIGHT / 2]
         self.mousePos = [0, 0]
-        self.game = Map()
+        self.max_enemy = 10
+        self.game = Map(self.max_enemy)
 
     def draw(self, canvas):
         self.game.draw(canvas)
