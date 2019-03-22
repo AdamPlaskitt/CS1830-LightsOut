@@ -22,6 +22,9 @@ class GamePlay(States):
     def draw(self, canvas):
         self.game.draw(canvas)
 
+    def update(self, canvas):
+        pass
+
     def key_listener(self, key):
         self.game.kbd.key_down(key)
 

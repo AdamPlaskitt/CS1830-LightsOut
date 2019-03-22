@@ -6,9 +6,7 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
-from lib.player.interactions.keyboard import Keyboard
 from lib.player.inventory import Inventory
-from game_states.Torch import Torch
 
 
 
@@ -46,11 +44,11 @@ class Player:
         self.score = 0
 
     def draw(self, canvas):
+        # inventory
+        self.inven.draw(canvas)
         # sprite
         canvas.draw_image(self.img, (self.frame_width * self.frame_index + self.frame_centre, self.height / 2),
                           (self.frame_width, self.height), self.pos, (50, 50), self.rot)
-        # inventory
-        self.inven.draw(canvas)
         # health bar
         canvas.draw_line((9 * self.health + 50, 2 * self.y - 150), (9 * self.max_health + 50, 2 * self.y - 150),
                          10, 'White')
@@ -70,7 +68,7 @@ class Player:
         self.clock += 1
         if self.clock % self.speed == 0:
             self.update_sprite()
-        if self.clock % 60 == 0:
+        if self.clock % 10 == 0:
             self.update_score()
 
     def update_score(self):
@@ -111,9 +109,12 @@ class Player:
         if self.health <= 0:
             self.lives -= 1
             self.health = self.max_health
-        if self.lives == 0:
+        if self.lives == -1:
+            self.final_score = self.score
             self.game_over = True
 
+    def get_score(self):
+        return self.final_score
 
 if __name__ == '__main__':
     CANVASWIDTH = 1000

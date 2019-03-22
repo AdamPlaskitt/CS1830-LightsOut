@@ -4,12 +4,15 @@ try:
 except ImportError:
     sys.argv.append('--no-controlpanel')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import math, os
+import math
+import os
+from game_states.Torch import Torch
 
 
 class Inventory:
 
     def __init__(self, slots, size, canvas_width, canvas_height):
+        self.torch = Torch()
         z = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/torch.png")
         self.torchimg = simplegui._load_local_image(z)
         self.screen_width = canvas_width
@@ -26,15 +29,16 @@ class Inventory:
         self.slot_7_selected = False
         self.slot_8_selected = False
         self.slot_9_selected = False
-        self.highlighted = 0
+        self.highlighted = 1
 
     def draw(self, canvas):
+        self.torch.draw(canvas)
         canvas.draw_image(self.torchimg, (256, 256), (512, 512),
-                          (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50), 1)
+                          (self.screen_width / 2 - self.size, self.screen_height - 10 - self.size / 2), (50, 50))
         canvas.draw_image(self.torchimg, (256, 256), (512, 512),
                           (self.screen_width / 2, self.screen_height - 10 - self.size / 2), (75, 75))
         canvas.draw_image(self.torchimg, (256, 256), (512, 512),
-                          (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100), -1)
+                          (self.screen_width / 2 + self.size, self.screen_height - 10 - self.size / 2), (100, 100))
         canvas.draw_line(((self.screen_width / 2) - (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          ((self.screen_width / 2) + (self.size * self.slots / 2), self.screen_height - 10 - self.size),
                          5, 'White')
@@ -57,12 +61,16 @@ class Inventory:
                                self.screen_height - 10 - self.size)], 7, 'Blue')
 
     def update(self):
+        self.torch.update()
         if self.slot_1_selected:
             self.highlighted = 0
+            self.torch.useSmallTorch()
         if self.slot_2_selected:
             self.highlighted = 1
+            self.torch.useMediumTorch()
         if self.slot_3_selected:
             self.highlighted = 2
+            self.torch.useBigTorch()
         if self.slot_4_selected:
             self.highlighted = 3
         if self.slot_5_selected:
