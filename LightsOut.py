@@ -4,7 +4,7 @@ try:
     import simplegui
 except ImportError:
     sys.argv.append('--no-controlpanel')
-    #sys.argv.append('--fullscreen')
+    sys.argv.append('--fullscreen')
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.state_machine.control import Control
 from game_states.menu import Menu

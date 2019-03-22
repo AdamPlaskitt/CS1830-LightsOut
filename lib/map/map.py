@@ -193,12 +193,18 @@ class Map:
         self.Map.append(Obstacle(-198, -41, -198, -95))
         self.Map.append(Obstacle(-230, -41, -230, -95))
         self.Map.append(Obstacle(-198, -95, -230, -95))
+        # Add spawn points
+        self.Map.append(spawn_point([750, 100]))
+        self.Map.append(spawn_point([850, 600]))
+        self.Map.append(spawn_point([170, 700]))
+        self.Map.append(spawn_point([-100, 700]))
+        self.Map.append(spawn_point([50, -100]))
         # Add map to list
         self.Map.append(tMap(mapZoom))
         self.Interactions = []
         self.tmap = tMap(mapZoom)
-        # Add spawn points
-        self.Map.append(spawn_point([100, 100]))
+
+
         for map in self.Map:
             self.Interactions.append(MapInteraction(self.kbd, map))
         for obstacle in self.Map:
