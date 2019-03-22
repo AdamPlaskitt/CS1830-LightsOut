@@ -8,6 +8,8 @@ from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
 from lib.player.interactions.keyboard import Keyboard
 from lib.player.inventory import Inventory
+from game_states.Torch import Torch
+
 
 
 class Player:
