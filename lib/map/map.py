@@ -4,6 +4,7 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+from lib.player.interactions.keyboard import Keyboard
 
 import math, random
 from lib.util.vector import Vector
@@ -17,9 +18,6 @@ img = simplegui.load_image(
 imgCentre = Vector(307, 307)
 mapZoom = 2
 screenPos = Vector(307, 307)
-
-player = Player(CANVASWIDTH/2, CANVASHEIGHT/2, 3)
-
 
 class Obstacle:
     def __init__(self, x1, y1, x2, y2):
@@ -35,35 +33,6 @@ class Obstacle:
         self.startPos.add(self.vel)
         self.endPos.add(self.vel)
         self.vel.multiply(0.85)
-
-
-class Keyboard:
-    def __init__(self):
-        self.right = False
-        self.left = False
-        self.up = False
-        self.down = False
-
-    def keyDown(self, key):
-        if key == simplegui.KEY_MAP['right']:
-            self.right = True
-        if key == simplegui.KEY_MAP['left']:
-            self.left = True
-        if key == simplegui.KEY_MAP['up']:
-            self.up = True
-        if key == simplegui.KEY_MAP['down']:
-            self.down = True
-
-    def keyUp(self, key):
-        if key == simplegui.KEY_MAP['right']:
-            self.right = False
-        if key == simplegui.KEY_MAP['left']:
-            self.left = False
-        if key == simplegui.KEY_MAP['up']:
-            self.up = False
-        if key == simplegui.KEY_MAP['down']:
-            self.down = False
-
 
 class Interaction:
     def __init__(self, obstacle, keyboard, tMap):
@@ -135,6 +104,7 @@ class tMap:
 class Map:
     def __init__(self):
         self.kbd = Keyboard()
+        self.player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, self.kbd)
         self.Map = []
         # Room1 walls
         self.Map.append(Obstacle(-105, -32, -6, -32))
@@ -266,15 +236,15 @@ class Map:
             obstacle.draw(canvas)
             self.collide_check(obstacle, self.tmap, self.kbd)
             # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.pos.x))
-        player.update()
-        player.draw(canvas)
+        self.player.update()
+        self.player.draw(canvas)
 
 if __name__ == '__main__':
     # Create a frame and assign callbacks to event handlers
     frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
     test = Map()
     frame.set_draw_handler(test.draw)
-    frame.set_keydown_handler(test.kbd.keyDown)
-    frame.set_keyup_handler(test.kbd.keyUp)
+    frame.set_keydown_handler(test.kbd.key_down)
+    frame.set_keyup_handler(test.kbd.key_up)
     frame.start()
 

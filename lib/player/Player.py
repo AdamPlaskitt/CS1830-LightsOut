@@ -14,9 +14,10 @@ from game_states.Torch import Torch
 
 class Player:
 
-    def __init__(self, x_pos, y_pos, lives):
+    def __init__(self, x_pos, y_pos, lives, kbd):
         self.inven = Inventory(3, 100, 2 * x_pos, 2 * y_pos)
-        self.kbd = Keyboard()
+        # self.kbd = Keyboard()
+        self.kbd = kbd
         self.player_move = PlayerMove(self, self.kbd)
         self.change_slot = ChangeSlot(self.inven, self.kbd)
         self.x = x_pos

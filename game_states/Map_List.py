@@ -21,7 +21,7 @@ def draw(canvas):
 # Create a frame and assign callbacks to event handlers
 frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
 frame.set_draw_handler(draw)
-frame.set_keydown_handler(kbd.keyDown)
-frame.set_keyup_handler(kbd.keyUp)
+frame.set_keydown_handler(kbd.key_down)
+frame.set_keyup_handler(kbd.key_up)
 frame.set_mousedrag_handler(mouse.drag)
 frame.start()

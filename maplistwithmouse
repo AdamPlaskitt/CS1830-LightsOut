@@ -53,7 +53,7 @@ class Keyboard:
         self.up = False
         self.down = False
     
-    def keyDown(self, key):
+    def key_down(self, key):
         if key == simplegui.KEY_MAP['right']:
             self.right = True
         if key == simplegui.KEY_MAP['left']:
@@ -63,7 +63,7 @@ class Keyboard:
         if key == simplegui.KEY_MAP['down']:
             self.down = True
 
-    def keyUp(self, key):
+    def key_up(self, key):
         if key == simplegui.KEY_MAP['right']:
             self.right = False
         if key == simplegui.KEY_MAP['left']:
@@ -112,7 +112,7 @@ def draw(canvas):
 # Create a frame and assign callbacks to event handlers
 frame = simplegui.create_frame("Game", CANVASWIDTH, CANVASHEIGHT)
 frame.set_draw_handler(draw)
-frame.set_keydown_handler(kbd.keyDown)
-frame.set_keyup_handler(kbd.keyUp)
+frame.set_keydown_handler(kbd.key_down)
+frame.set_keyup_handler(kbd.key_up)
 frame.set_mousedrag_handler(mouse.drag)
 frame.start()

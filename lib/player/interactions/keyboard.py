@@ -6,6 +6,10 @@ except ImportError:
 
 class Keyboard:
     def __init__(self):
+        self.right = False
+        self.left = False
+        self.up = False
+        self.down = False
         self.move = False
         self.one = False
         self.two = False
@@ -20,12 +24,16 @@ class Keyboard:
     def key_down(self, key):
         if key == simplegui.KEY_MAP['right']:
             self.move = True
+            self.right = True
         if key == simplegui.KEY_MAP['left']:
             self.move = True
+            self.left = True
         if key == simplegui.KEY_MAP['up']:
             self.move = True
+            self.up = True
         if key == simplegui.KEY_MAP['down']:
             self.move = True
+            self.down = True
         if key == simplegui.KEY_MAP['1']:
             self.one = True
         if key == simplegui.KEY_MAP['2']:
@@ -48,12 +56,16 @@ class Keyboard:
     def key_up(self, key):
         if key == simplegui.KEY_MAP['right']:
             self.move = False
+            self.right = False
         if key == simplegui.KEY_MAP['left']:
             self.move = False
+            self.left = False
         if key == simplegui.KEY_MAP['up']:
             self.move = False
+            self.up = False
         if key == simplegui.KEY_MAP['down']:
             self.move = False
+            self.down = False
         if key == simplegui.KEY_MAP['1']:
             self.one = False
         if key == simplegui.KEY_MAP['2']:

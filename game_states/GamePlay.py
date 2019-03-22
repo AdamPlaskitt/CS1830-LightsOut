@@ -23,10 +23,10 @@ class GamePlay(States):
         self.game.draw(canvas)
 
     def key_listener(self, key):
-        self.game.kbd.keyDown(key)
+        self.game.kbd.key_down(key)
 
     def key_up(self, key):
-        self.game.kbd.keyUp(key)
+        self.game.kbd.key_up(key)
 
 
 
