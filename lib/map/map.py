@@ -5,8 +5,7 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.player.interactions.keyboard import Keyboard
-
-import math, random
+import random
 from lib.util.vector import Vector
 from lib.player.Player import Player
 from lib.enemies.shuffler import Shuffler
@@ -119,7 +118,8 @@ class spawn_point:
 
 
 class Map:
-    def __init__(self, max_enemy):
+    def __init__(self, max_enemy, settings):
+        self.max_enemy = max_enemy
         self.kbd = Keyboard()
         self.player = Player(CANVASWIDTH / 2, CANVASHEIGHT / 2, 3, self.kbd)
         self.Map = []
@@ -204,7 +204,16 @@ class Map:
         self.Map.append(tMap(mapZoom))
         self.Interactions = []
         self.tmap = tMap(mapZoom)
+        self.clock = 0
+        self.spawn_points = list()
+        for i in range(5):
+            self.spawn_points.append(self.Map[56 + i])
 
+        self.settings = settings
+
+        self.enemies = list()
+        for i in range(self.max_enemy):
+            self.enemies.append(Shuffler(random.choice(self.spawn_points).moveP, self.settings))
 
         for map in self.Map:
             self.Interactions.append(MapInteraction(self.kbd, map))
@@ -262,14 +271,29 @@ class Map:
             obstacle.draw(canvas)
             self.collide_check(obstacle, self.tmap, self.kbd)
             # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.moveP.x))
+        for enemy in self.enemies:
+            enemy.draw(canvas)
+        for i in range(5):
+            self.spawn_points.append(self.Map[56 + i])
         self.player.update()
         self.player.draw(canvas)
 
-        self.spawn_points = list()
-        for i in range(5):
-            self.spawn_points.append(self.Map[56+i])
-        for point in self.spawn_points:
-            print(point.moveP.get_pos())
+    def update(self):
+        self.remove = []
+        self.clock += 1
+        for enemy in self.enemies:
+            if self.clock % 2 == 0:
+                enemy.update()
+            if enemy.target.copy().subtract(enemy.pos).length() < 5:
+                self.player.take_damage(enemy.attack_str)
+            if self.clock % 5 == 0:
+                if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() <= self.player.inven.torch.lightRadius:
+                    enemy.take_damage(self.player.inven.torch.damage)
+            if not enemy.is_alive():
+                self.remove.append(self.enemies.index(enemy))
+                print('dead')
+        for item in self.remove:
+            self.enemies.pop(item)
 
 
 if __name__ == '__main__':

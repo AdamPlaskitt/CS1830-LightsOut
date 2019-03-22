@@ -9,10 +9,8 @@ from lib.util.vector import Vector
 
 
 class Shuffler(Enemy):
-    def __init__(self, position, settings):
-        Enemy.__init__(self, position, True, False, 8, 10, 30, 0)
-        print(os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/enemies"
-                                                      "/zombie_n_skeleton_preview_0.png"))
+    def __init__(self, position, settings_args):
+        Enemy.__init__(self, position, True, False, 0.5, 10, 30, 0)
         self.img = simplegui._load_local_image(os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets"
                                                                                        "/enemies"
                                                                                        "/zombie_n_skeleton_preview_0"
@@ -22,7 +20,7 @@ class Shuffler(Enemy):
         self.frameHeight = (self.img.get_height() / 4)
         self.frameCentreX = self.frameWidth / 2
         self.frameCentreY = self.frameHeight / 2
-        self.settings = settings
+        self.settings = settings_args
         self.target = Vector(self.settings.get('width')/2, self.settings.get('height')/2)
         self.pos = position
         self.row = None
@@ -45,11 +43,9 @@ class Shuffler(Enemy):
                               (self.frameWidth, self.frameHeight),  # width_height_source
                               self.pos.get_pos(),  # center_dest
                               (40, 40))
-        self.update()
 
     def update(self):
         self.path = self.target.copy().subtract(self.pos).normalize() * 3
-        print(self.target)
         self.column += 1
         if self.column > 2:
             self.column = 0

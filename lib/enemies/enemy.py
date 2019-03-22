@@ -28,7 +28,7 @@ class Enemy(object):
     # Don't override
     # is the enemy alive
     def is_alive(self):
-        if self.health > 0 or not self.dead:
+        if self.health > 0:
             return True
         return False
 

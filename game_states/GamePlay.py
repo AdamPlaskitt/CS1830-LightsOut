@@ -17,18 +17,20 @@ class GamePlay(States):
         self.mapPos = [CANVASWIDTH/2, CANVASHEIGHT/2]
         self.mousePos = [0, 0]
         self.max_enemy = 10
-        self.game = Map(self.max_enemy)
+        self.settings = settings
+        self.game = Map(self.max_enemy, settings)
 
     def set_up(self):
         self.mapPos = [CANVASWIDTH / 2, CANVASHEIGHT / 2]
         self.mousePos = [0, 0]
         self.max_enemy = 10
-        self.game = Map(self.max_enemy)
+        self.game = Map(self.max_enemy, self.settings)
 
     def draw(self, canvas):
         self.game.draw(canvas)
 
     def update(self, canvas):
+        self.game.update()
         if self.game.player.game_over:
             self.score = self.game.player.final_score
             self.next = 'gameOver'
