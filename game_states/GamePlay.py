@@ -14,16 +14,22 @@ CANVASHEIGHT = 750
 class GamePlay(States):
     def __init__(self, settings):
         States.__init__(self)
-        self.zoom = 2
         self.mapPos = [CANVASWIDTH/2,CANVASHEIGHT/2]
         self.mousePos = [0,0]
+        self.game = Map()
+
+    def set_up(self):
+        self.mapPos = [CANVASWIDTH / 2, CANVASHEIGHT / 2]
+        self.mousePos = [0, 0]
         self.game = Map()
 
     def draw(self, canvas):
         self.game.draw(canvas)
 
     def update(self, canvas):
-        pass
+        if self.game.player.game_over:
+            self.next = 'gameOver'
+            self.done = True
 
     def key_listener(self, key):
         self.game.kbd.key_down(key)

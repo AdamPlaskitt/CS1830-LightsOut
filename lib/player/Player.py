@@ -21,7 +21,7 @@ class Player:
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
-        self.max_health = 100
+        self.max_health = 1
         self.health = self.max_health
         self.lives = lives
         self.dead = False
