@@ -4,7 +4,9 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.state_machine.states import States
-
+from lib.player.Player import Player
+from lib.player.inventory import Inventory
+from game_states.Torch import Torch
 
 class Button:
     def __init__(self, canvas, pos, txt, colour_txt, colour_back, settings):
@@ -49,6 +51,9 @@ class Menu(States):
         self.isMenu = True
         self.isExit = False
         self.pos = None
+        self.torch = Torch()
+        self.inven = Inventory(3, 100, 1000, 750)
+        self.player = Player(1000/2, 750/2, 3, self.inven)
 
     def drag(self, pos):
         self.pos = pos
@@ -131,11 +136,13 @@ class Menu(States):
             canvas.draw_polygon(self.backPos, 4, "White")
             canvas.draw_polygon(self.arrowPos, 4, "White")
             canvas.draw_polygon(self.arrowShaftPos, 4, "White")
+            self.player.draw(canvas)
 
         if self.isHelp:
             canvas.draw_polygon(self.backPos, 4, "White")
             canvas.draw_polygon(self.arrowPos, 4, "White")
             canvas.draw_polygon(self.arrowShaftPos, 4, "White")
+            canvas.draw_text("How to Play", [350, 45], 80, 'monospace')
 
         if self.isLeader:
             self.next = 'leaderboard'
