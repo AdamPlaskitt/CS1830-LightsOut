@@ -10,6 +10,7 @@ import math, random
 from lib.util.vector import Vector
 from lib.player.Player import Player
 
+
 CANVASHEIGHT = 750
 CANVASWIDTH = 1000
 MIN_RAD = 1
@@ -261,9 +262,14 @@ class Map:
             obstacle.draw(canvas)
             self.collide_check(obstacle, self.tmap, self.kbd)
             # print(int(obstacle.startPos.x), int(obstacle.endPos.x), int(player.moveP.x))
-
         self.player.update()
         self.player.draw(canvas)
+
+        self.spawn_points = list()
+        for i in range(5):
+            self.spawn_points.append(self.Map[56+i])
+        for point in self.spawn_points:
+            print(point.moveP.get_pos())
 
 
 if __name__ == '__main__':
