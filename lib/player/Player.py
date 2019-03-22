@@ -31,7 +31,6 @@ class Player:
         y = os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets/player/heart.png")
         self.img = simplegui._load_local_image(x)
         self.hpimg = simplegui._load_local_image(y)
-        # self.img = pygame.image.load(x).convert_alpha()
         self.height = 180
         self.width = 411
         self.frame_width = self.width / 3
