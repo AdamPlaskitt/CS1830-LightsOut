@@ -8,6 +8,7 @@ from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
 from lib.player.inventory import Inventory
 from lib.util.vector import Vector
+from lib.player.interactions.Quit import Quit
 
 
 
@@ -19,6 +20,7 @@ class Player:
         self.kbd = kbd
         self.player_move = PlayerMove(self, self.kbd)
         self.change_slot = ChangeSlot(self.inven, self.kbd)
+        self.quit = Quit(self, self.kbd)
         self.x = x_pos
         self.y = y_pos
         self.pos = (x_pos, y_pos)
@@ -58,11 +60,12 @@ class Player:
         for i in range(0, self.lives):
             canvas.draw_image(self.hpimg, (112.5, 112.5), (225, 225), (60 * i + 50, 50), (50, 50))
         # score
-        canvas.draw_text('Score: ' + str(self.score), (self.width * 2, 50), 40, 'White')
+        canvas.draw_text('Score: ' + str(self.score), (self.width * 2 - 20, 50), 40, 'White')
 
     def update(self):
         self.player_move.update()
         self.change_slot.update()
+        self.quit.update()
         self.inven.update()
         self.update_rot()
         self.clock += 1

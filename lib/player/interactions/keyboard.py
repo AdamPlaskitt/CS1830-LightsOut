@@ -20,6 +20,7 @@ class Keyboard:
         self.seven = False
         self.eight = False
         self.nine = False
+        self.q = False
 
     def key_down(self, key):
         if key == simplegui.KEY_MAP['right']:
@@ -52,6 +53,8 @@ class Keyboard:
             self.eight = True
         if key == simplegui.KEY_MAP['9']:
             self.nine = True
+        if key == simplegui.KEY_MAP['q']:
+            self.q = True
 
     def key_up(self, key):
         if key == simplegui.KEY_MAP['right']:
@@ -84,3 +87,5 @@ class Keyboard:
             self.eight = False
         if key == simplegui.KEY_MAP['9']:
             self.nine = False
+        if key == simplegui.KEY_MAP['q']:
+            self.q = False

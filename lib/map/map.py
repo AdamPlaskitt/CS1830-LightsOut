@@ -289,7 +289,7 @@ class Map:
                 enemy.aim = enemy.aim.copy().add(offset)
             else:
                 enemy.aim = enemy.target.copy()
-            if self.clock % 2 == 0:
+            if self.clock % 1.5 == 0:
                 enemy.update()
             if enemy.target.copy().subtract(enemy.pos).length() < 3:
                 self.player.take_damage(enemy.attack_str)
@@ -306,8 +306,12 @@ class Map:
         for item in self.remove:
             self.enemies.remove(item)
             self.player.update_score(5)
-        if self.clock % 30 == 0 and len(self.enemies) < 10:
-            self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
+        if self.clock % 30 == 0 and len(self.enemies) < self.max_enemy:
+            for i in range(self.max_enemy-len(self.enemies)):
+                self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
+
+        self.max_enemy = 10 + (self.player.score//60)
+        print(self.max_enemy)
 
 
 if __name__ == '__main__':

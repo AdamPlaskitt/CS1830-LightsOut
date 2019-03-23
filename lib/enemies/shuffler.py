@@ -14,11 +14,10 @@ class Shuffler(Enemy):
         Enemy.__init__(self, position, True, False, 0.1, 10, 30, 0)
         self.img = simplegui._load_local_image(os.path.join(os.path.dirname(__file__), "../../textures/sprite_sheets"
                                                                                        "/enemies"
-                                                                                       "/zombie_n_skeleton_preview_0"
-                                                                                       ".png"))
-        self.zombie = SpriteSheet(self.img, 6, 3, 100, 100)
-        self.frameWidth = (self.img.get_width() / 6)
-        self.frameHeight = (self.img.get_height() / 4)
+                                                                                       "/ghosts.png"))
+        self.zombie = SpriteSheet(self.img, 12, 8, 100, 100)
+        self.frameWidth = (self.img.get_width() / 12)
+        self.frameHeight = (self.img.get_height() / 8)
         self.frameCentreX = self.frameWidth / 2
         self.frameCentreY = self.frameHeight / 2
         self.settings = settings_args
@@ -44,7 +43,7 @@ class Shuffler(Enemy):
                                          self.frameHeight * self.row + self.frameCentreY),  # center_source
                               (self.frameWidth, self.frameHeight),  # width_height_source
                               self.pos.get_pos(),  # center_dest
-                              (40, 40))
+                              (20, 20))
             canvas.draw_line(self.pos.copy().add(Vector(-10, -20)).get_pos(), self.pos.copy().add(Vector(-10 + self.health * (2/3), -20)).get_pos(), 3, 'Red')
 
     def update(self):

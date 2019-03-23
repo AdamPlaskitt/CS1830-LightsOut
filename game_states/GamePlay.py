@@ -19,6 +19,7 @@ class GamePlay(States):
         self.max_enemy = 0
         self.settings = settings
         self.game = Map(self.max_enemy, settings)
+        self.exit = False
 
     def set_up(self):
         self.mapPos = [CANVASWIDTH / 2, CANVASHEIGHT / 2]
@@ -30,6 +31,7 @@ class GamePlay(States):
         self.game.draw(canvas)
 
     def update(self, canvas):
+
         self.game.update()
         if self.game.player.game_over:
             self.score = self.game.player.final_score
