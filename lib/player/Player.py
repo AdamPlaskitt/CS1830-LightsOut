@@ -7,6 +7,7 @@ except ImportError:
 from lib.player.interactions.player_move import PlayerMove
 from lib.player.interactions.change_slot import ChangeSlot
 from lib.player.inventory import Inventory
+from lib.util.vector import Vector
 
 
 
@@ -75,7 +76,8 @@ class Player:
         self.inven.score += increase
 
     def update_rot(self):
-        self.mouse_pos = pygame.mouse.get_pos()
+        if Vector(self.x, self.y).copy().subtract(Vector(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])).length() >= self.inven.torch.lightRadius-20:
+            self.mouse_pos = pygame.mouse.get_pos()
         if self.mouse_pos[0] > self.x and self.mouse_pos[1] > self.y:
             self.rot = -(math.pi + math.asin(
                 (self.mouse_pos[0] - self.x) / math.sqrt(math.pow(self.mouse_pos[0] - self. x, 2) +

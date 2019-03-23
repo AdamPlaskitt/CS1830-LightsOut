@@ -5,7 +5,7 @@ try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import os
+from lib.util.vector import Vector
 
 CANVASWIDTH = 1000
 CANVASHEIGHT = 750
@@ -67,7 +67,8 @@ class Torch:
         self.isBigTorch = True
 
     def update(self):
-        self.mousePos = pygame.mouse.get_pos()
+        if Vector(self.mapPos[0], self.mapPos[1]).copy().subtract(Vector(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])).length() >= self.lightRadius-20:
+            self.mousePos = pygame.mouse.get_pos()
         if self.isSmaTorch:
             self.createSmaTorch()
         if self.isMedTorch:
