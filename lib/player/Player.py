@@ -67,12 +67,12 @@ class Player:
         self.clock += 1
         if self.clock % self.speed == 0:
             self.update_sprite()
-        if self.clock % 10 == 0:
+        if self.clock % 20 == 0:
             self.update_score()
 
-    def update_score(self):
-        self.score += 1
-        self.inven.score += 1
+    def update_score(self, increase=1):
+        self.score += increase
+        self.inven.score += increase
 
     def update_rot(self):
         self.mouse_pos = pygame.mouse.get_pos()

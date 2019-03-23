@@ -23,6 +23,7 @@ class Shuffler(Enemy):
         self.frameCentreY = self.frameHeight / 2
         self.settings = settings_args
         self.target = Vector(self.settings.get('width')/2, self.settings.get('height')/2)
+        self.aim = self.target.copy()
         self.pos = position
         self.row = None
         self.moving = 'up'
@@ -44,14 +45,18 @@ class Shuffler(Enemy):
                               (self.frameWidth, self.frameHeight),  # width_height_source
                               self.pos.get_pos(),  # center_dest
                               (40, 40))
+            canvas.draw_line(self.pos.copy().add(Vector(-10, -20)).get_pos(), self.pos.copy().add(Vector(-10 + self.health * (2/3), -20)).get_pos(), 3, 'Red')
 
     def update(self):
-        self.path = self.target.copy().subtract(self.pos).normalize() * 3
+        self.path = self.aim.copy().subtract(self.pos).normalize() * 3
         self.column += 1
         if self.column > 2:
             self.column = 0
         self.moving = self.get_orientation()
         self.pos.add(self.path)
+
+    def is_fleeing(self):
+        return self.flee
 
     def get_orientation(self):
         if self.pos.get_pos()[0] >= self.frameCentreX and self.pos.get_pos()[1] > self.frameCentreY:

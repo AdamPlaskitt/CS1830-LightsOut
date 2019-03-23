@@ -284,7 +284,11 @@ class Map:
         self.remove = []
         self.clock += 1
         for enemy in self.enemies:
-
+            if enemy.is_fleeing():
+                offset = enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1]))
+                enemy.aim = enemy.aim.copy().add(offset)
+            else:
+                enemy.aim = enemy.target.copy()
             if self.clock % 2 == 0:
                 enemy.update()
             if enemy.target.copy().subtract(enemy.pos).length() < 3:
@@ -292,11 +296,16 @@ class Map:
             if self.clock % 5 == 0:
                 if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() <= self.player.inven.torch.lightRadius:
                     enemy.take_damage(self.player.inven.torch.damage)
+            if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() <= self.player.inven.torch.lightRadius * (3/4):
+                enemy.flee = True
+            if enemy.pos.copy().subtract(Vector(self.player.mouse_pos[0], self.player.mouse_pos[1])).length() >= self.player.inven.torch.lightRadius * (6/4):
+                enemy.flee = False
             if not enemy.is_alive():
                 self.remove.append(enemy)
 
         for item in self.remove:
             self.enemies.remove(item)
+            self.player.update_score(5)
         if self.clock % 30 == 0 and len(self.enemies) < 10:
             self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
 
