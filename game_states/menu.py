@@ -137,10 +137,16 @@ class Menu(States):
             self.player.draw(canvas)
 
         if self.isHelp:
+            canvas.draw_text("Press arrow keys to move the player", [15, 150], 50, 'White', 'monospace')
+            canvas.draw_text("Move mouse to move the torch", [15, 225], 50, 'White', 'monospace')
+            canvas.draw_text("Use 1, 2 and 3 to cycle through the inventory slots", [15, 300], 50, 'White', 'monospace')
+            canvas.draw_text("Your score will increase the longer you survive", [15, 375], 50, 'White', 'monospace')
+            canvas.draw_text("You can submit your score via the online leaderboard", [15, 450], 50, 'White', 'monospace')
+            canvas.draw_text("And most importantly don't let the monsters catch you!", [15, 525], 50, 'White', 'monospace')
+            canvas.draw_text("How to Play", [350, 75], 80, 'monospace')
             canvas.draw_polygon(self.backPos, 4, "White")
             canvas.draw_polygon(self.arrowPos, 4, "White")
             canvas.draw_polygon(self.arrowShaftPos, 4, "White")
-            canvas.draw_text("How to Play", [350, 45], 80, 'monospace')
 
         if self.isLeader:
             self.next = 'leaderboard'
