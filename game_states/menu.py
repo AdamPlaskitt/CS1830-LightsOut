@@ -4,7 +4,7 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from lib.state_machine.states import States
-from lib.player.Player import Player
+import os
 from lib.player.inventory import Inventory
 from game_states.Torch import Torch
 
@@ -121,8 +121,10 @@ class Menu(States):
             self.leaderButton.colourTxt = 'White'
 
         if self.isMenu:
-            canvas.draw_text("LightsOut", (self.settings.get('width') / 7, self.settings.get('height') / 4), self.settings.get('width')
-                             / 7.5, "White", self.font)
+            #canvas.draw_text("LightsOut", (self.settings.get('width') / 7, self.settings.get('height') / 4), self.settings.get('width')
+             #                / 7.5, "White", self.font)
+            img = simplegui._load_local_image(os.path.join(os.path.dirname(__file__), "../logo.png"))
+            canvas.draw_image(img, (img.get_width()/2, img.get_height()/2), (img.get_width(), img.get_height()), (self.settings.get('width')/2 , 100), (800, 400))
             self.startButton.draw()
             self.helpButton.draw()
             self.leaderButton.draw()
