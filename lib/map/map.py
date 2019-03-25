@@ -311,7 +311,6 @@ class Map:
                 self.enemies.append(Shuffler(random.choice(self.spawn_points), self.settings))
 
         self.max_enemy = 10 + (self.player.score//60)
-        print(self.max_enemy)
 
 
 if __name__ == '__main__':
